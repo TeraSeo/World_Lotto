@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "338194983547",
+    "project_id": "world-lotto-6d8bc",
+    "storage_bucket": "world-lotto-6d8bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338194983547:android:657d07ab265cceaf1550de",
+        "android_client_info": {
+          "package_name": "com.world.lotto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "338194983547-ettgjjsmphotbo78kq85og3r67b9votv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.world.lotto",
+            "certificate_hash": "da79a1276862954594e57585f306f04b91322f7a"
+          }
+        },
+        {
+          "client_id": "338194983547-of85pi0d5j6cbc4nl6bvdg0p3to63dfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh8Vb7bC8MiYFghmS30ySbzptcLN0uFYQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338194983547-25rne50mkoak2hj4miau0fs39ofnlc4s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "338194983547-abepssjkpg02870u0qbqj1e6qqfgo5qh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.world.lotto"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
