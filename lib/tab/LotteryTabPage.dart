@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lottery_kr/tab/page/country/AmericanLotto.dart';
-import 'package:lottery_kr/tab/page/country/AustraliaLottery.dart';
-import 'package:lottery_kr/tab/page/country/EuroLottery.dart';
-import 'package:lottery_kr/tab/page/country/ItalianLotto.dart';
-import 'package:lottery_kr/tab/page/country/JapaneseLottery.dart';
-import 'package:lottery_kr/tab/page/country/KoreanLottery.dart';
-import 'package:lottery_kr/tab/page/country/SpanishLottery.dart';
-import 'package:lottery_kr/tab/page/country/UKLotto.dart';
+import 'package:lottery_kr/page/country/AmericanLotto.dart';
+import 'package:lottery_kr/page/country/AustraliaLottery.dart';
+import 'package:lottery_kr/page/country/EuroLottery.dart';
+import 'package:lottery_kr/page/country/ItalianLotto.dart';
+import 'package:lottery_kr/page/country/JapaneseLottery.dart';
+import 'package:lottery_kr/page/country/KoreanLottery.dart';
+import 'package:lottery_kr/page/country/SpanishLottery.dart';
+import 'package:lottery_kr/page/country/UKLotto.dart';
 
 class LotteryTabPage extends StatefulWidget {
 

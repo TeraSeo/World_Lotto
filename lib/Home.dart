@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:lottery_kr/service/JackpotService.dart';
 import 'package:lottery_kr/service/NotificationService.dart';
-import 'package:lottery_kr/tab/LotteryTab.dart';
-import 'package:lottery_kr/tab/LotteryTabPage.dart';
+import 'package:lottery_kr/service/helper_function.dart';
+import 'package:lottery_kr/widget/LotteryList.dart';
 import 'package:lottery_kr/widget/Widget.dart';
+import 'package:lottery_kr/widget/buttons/LotteryHomeButton.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
@@ -21,9 +19,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String _selectedTab = 'USA';
   String dropdownValue = 'usa'.tr();
-  double _containerHeight = 700;
   List<String> items = ["usa".tr(), "eu".tr(), "uk".tr(), "spain".tr(), "italy".tr(), "aus".tr(), "korea".tr(), "japan".tr()];
   CommonWidget commonWidget = CommonWidget.instance;
+  HelperFunctions helperFunctions = HelperFunctions();
 
   Future<bool> _onWillPop() async {
     return false;
@@ -48,244 +46,79 @@ class _HomeState extends State<Home> {
     });
   }
 
-  // Future<void> _requestCameraPermission() async {
-  //   PermissionStatus status = await Permission.camera.status;
-  //   if (!status.isGranted) {
-  //     status = await Permission.camera.request();
-  //   }
-  // }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (Device.get().hasNotch) {
-      setState(() {
-        _containerHeight = MediaQuery.of(context).size.height * 0.60;
-      });
-    }
-    else {
-      setState(() {
-        _containerHeight = MediaQuery.of(context).size.height * 0.63;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        backgroundColor: Color.fromARGB(133, 59, 89, 179),
-        drawer: commonWidget.drawerWidgetWithDropdown(dropdownButton(), context),
-        body: SafeArea(
-          bottom: false,
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: IconButton(
-                          icon: Icon(Icons.arrow_back, color: Colors.white),
+        drawer: commonWidget.homeDrawerWidget(context),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment(0.8, 1),
+              colors: <Color>[
+                Color.fromARGB(255, 107, 59, 202),
+                Color.fromARGB(255, 221, 81, 228),
+                Color.fromARGB(255, 230, 119, 198),
+                Color.fromARGB(255, 216, 97, 147),
+                Color.fromARGB(255, 233, 105, 124),
+                Color.fromARGB(255, 211, 142, 133),
+                Color.fromARGB(255, 238, 172, 139),
+                Color.fromARGB(255, 232, 188, 144),
+              ],
+              tileMode: TileMode.mirror,
+            ),
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Builder(
+                        builder: (context) => IconButton(
+                          icon: Icon(Icons.menu, color: Colors.white),
                           onPressed: () {
-                            exit(0);
+                            Scaffold.of(context).openDrawer();
                           },
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Builder(
-                          builder: (context) => IconButton(
-                            icon: Icon(Icons.menu, color: Colors.white),
-                            onPressed: () {
-                              Scaffold.of(context).openDrawer();
-                            },
-                          ),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: dropdownButton()
+                    ),
+                  ],
+                ),
+                LotteryList(selectedTab: _selectedTab),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          LotteryHomeButton(buttonText: "Number Analysis", subText: "Analyze your numbers", icon: Icon(Icons.analytics), goToPage: () => helperFunctions.goToResult(context)),
+                          LotteryHomeButton(buttonText: "Go to Compare Lotto", subText: "Compare various lotteries", icon: Icon(Icons.compare_arrows), goToPage: () => helperFunctions.goToCompare(context)),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          LotteryHomeButton(buttonText: "Go to Discussion", subText: "Share lottery tips", icon: Icon(Icons.people), goToPage: () => helperFunctions.goToDiscussion(context))
+                        ],
                       ),
                     ],
                   ),
-                  Center(
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.casino, size: 30, color: Colors.black),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "title".tr(),
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width * 0.11),
-                          child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              LotteryTab(
-                                text: 'usa'.tr(),
-                                isSelected: _selectedTab == 'USA',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'USA';
-                                  });
-                                },
-                              ),
-                              LotteryTab(
-                                text: 'eu'.tr(),
-                                isSelected: _selectedTab == 'EU',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'EU';
-                                  });
-                                },
-                              ),
-                              LotteryTab(
-                                text: 'uk'.tr(),
-                                isSelected: _selectedTab == 'UK',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'UK';
-                                  });
-                                },
-                              ),
-                              LotteryTab(
-                                text: 'spain'.tr(),
-                                isSelected: _selectedTab == 'Spain',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'Spain';
-                                  });
-                                },
-                              ),
-                              LotteryTab(
-                                text: 'italy'.tr(),
-                                isSelected: _selectedTab == 'Italy',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'Italy';
-                                  });
-                                },
-                              ),
-                              LotteryTab(
-                                text: 'aus'.tr(),
-                                isSelected: _selectedTab == 'Australia',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'Australia';
-                                  });
-                                },
-                              ),
-                              LotteryTab(
-                                text: 'korea'.tr(),
-                                isSelected: _selectedTab == 'Korea',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'Korea';
-                                  });
-                                },
-                              ),
-                              LotteryTab(
-                                text: 'japan'.tr(),
-                                isSelected: _selectedTab == 'Japan',
-                                onTap: () {
-                                  setState(() {
-                                    _selectedTab = 'Japan';
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Column(
-                  children: [
-                    GestureDetector(
-                      onVerticalDragUpdate: (details) {
-                        setState(() {
-                          _containerHeight -= details.primaryDelta!;
-                          if (Device.get().hasNotch) {
-                            if (_containerHeight < MediaQuery.of(context).size.height * 0.6) {
-                              _containerHeight = MediaQuery.of(context).size.height * 0.6;
-                            }
-                          }
-                          else {
-                            if (_containerHeight < MediaQuery.of(context).size.height * 0.63) {
-                              _containerHeight = MediaQuery.of(context).size.height * 0.63;
-                            }
-                          }
-                          if (_containerHeight > MediaQuery.of(context).size.height - 100) {
-                            _containerHeight = MediaQuery.of(context).size.height - 100;
-                          }
-                        });
-                      },
-                      child: 
-                      Container(
-                        height: _containerHeight,
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 10,
-                              spreadRadius: 5,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(2.5),
-                              ),
-                              margin: EdgeInsets.only(bottom: 10),
-                            ),
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    LotteryTabPage(content: _selectedTab),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
+                )
+              ]
+            ),
           ),
-        ),
+        )
       ),
     );
   }
@@ -328,7 +161,8 @@ class _HomeState extends State<Home> {
                     item,
                     style: const TextStyle(
                       fontSize: 14,
-                      color: Colors.black
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white
                     ),
                   ),
                 ))
@@ -370,14 +204,58 @@ class _HomeState extends State<Home> {
             }
           });
         },
-        buttonStyleData: const ButtonStyleData(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          height: 40,
-          width: 140,
+        buttonStyleData: ButtonStyleData(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          height: 50,
+          width: 160,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment(0.8, 1),
+              colors: <Color>[
+                Color.fromARGB(255, 221, 81, 228),
+                Color.fromARGB(255, 230, 119, 198),
+                Color.fromARGB(255, 216, 97, 147),
+                Color.fromARGB(255, 233, 105, 124),
+              ],
+              tileMode: TileMode.mirror,
+            ),
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 10,
+                offset: Offset(2, 4),
+              ),
+            ],
+          ),
         ),
         menuItemStyleData: const MenuItemStyleData(
-          height: 40,
+          height: 50,
         ),
+        iconStyleData: IconStyleData(iconEnabledColor: Colors.black),
+        dropdownStyleData: DropdownStyleData(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment(0.8, 1),
+              colors: <Color>[
+                Color.fromARGB(255, 221, 81, 228),
+                Color.fromARGB(255, 230, 119, 198),
+                Color.fromARGB(255, 216, 97, 147),
+                Color.fromARGB(255, 233, 105, 124),
+              ],
+              tileMode: TileMode.mirror,
+            ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: Offset(2, 4),
+            ),
+          ],
+        ))
       ),
     );
   }

@@ -7,14 +7,14 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:lottery_kr/Home.dart';
 import 'package:lottery_kr/data/LotteryDetails.dart';
 import 'package:lottery_kr/service/helper_function.dart';
-import 'package:lottery_kr/tab/page/CompareLotto.dart';
-import 'package:lottery_kr/tab/page/QrCodePage.dart';
-import 'package:lottery_kr/tab/page/Result.dart';
-import 'package:lottery_kr/tab/page/auth/LoginPage.dart';
-import 'package:lottery_kr/tab/page/auth/service/DeletedAccounts.dart';
-import 'package:lottery_kr/tab/page/discussion/DiscussionPage.dart';
-import 'package:lottery_kr/tab/page/discussion/ShowBookmarkedPosts.dart';
-import 'package:lottery_kr/tab/page/discussion/ShowLikedPosts.dart';
+import 'package:lottery_kr/page/CompareLotto.dart';
+import 'package:lottery_kr/page/QrCodePage.dart';
+import 'package:lottery_kr/page/Result.dart';
+import 'package:lottery_kr/page/auth/LoginPage.dart';
+import 'package:lottery_kr/service/DeletedAccounts.dart';
+import 'package:lottery_kr/page/discussion/DiscussionPage.dart';
+import 'package:lottery_kr/page/discussion/ShowBookmarkedPosts.dart';
+import 'package:lottery_kr/page/discussion/ShowLikedPosts.dart';
 
 class CommonWidget {
 
@@ -259,7 +259,7 @@ class CommonWidget {
     );
   }
 
-  Widget drawerWidgetWithDropdown(Widget dropdown_button2, BuildContext context) {
+  Widget homeDrawerWidget(BuildContext context) {
     return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -267,8 +267,22 @@ class CommonWidget {
             DrawerHeader(
               padding: EdgeInsets.all(30),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 59, 67, 97)
-                // color: Color(0xFF003366)
+                // color: Color.fromARGB(255, 59, 67, 97),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(0.8, 1),
+                  colors: <Color>[
+                    Color.fromARGB(255, 107, 59, 202),
+                    Color.fromARGB(255, 221, 81, 228),
+                    Color.fromARGB(255, 230, 119, 198),
+                    Color.fromARGB(255, 216, 97, 147),
+                    Color.fromARGB(255, 233, 105, 124),
+                    Color.fromARGB(255, 211, 142, 133),
+                    Color.fromARGB(255, 238, 172, 139),
+                    Color.fromARGB(255, 232, 188, 144),
+                  ],
+                  tileMode: TileMode.mirror,
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,7 +296,6 @@ class CommonWidget {
                       color: Colors.white,
                     ),
                   ),
-                  dropdown_button2
                 ],
               )
             ),

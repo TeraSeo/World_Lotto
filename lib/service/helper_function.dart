@@ -2,7 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:lottery_kr/data/LotteryDetails.dart';
+import 'package:lottery_kr/page/CompareLotto.dart';
+import 'package:lottery_kr/page/Result.dart';
+import 'package:lottery_kr/page/discussion/DiscussionPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HelperFunctions {
 
@@ -112,7 +118,50 @@ class HelperFunctions {
     }
   }
 
-  void createRewardedAds(BuildContext context) async {
+  void goToResult(BuildContext context) async {
+    bool result = await InternetConnection().hasInternetAccess;
+    if (result) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Result()),
+      );
+    }
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("wifiNeeded".tr()),
+          content: Text("requireWifi".tr()),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void goToCompare(BuildContext context) {
+    LotteryDetails lotteryDetails = new LotteryDetails();
+    List<Map<String, dynamic>> details = lotteryDetails.getLotteryDetails();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CompareLotto(lotteryDetails: details)),
+    );
+  }
+
+  void goToDiscussion(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DiscussionPage()),
+    );
+  }
+
+  Future createRewardedAds(BuildContext context) async {
     await RewardedAd.load(
       // adUnitId: Platform.isAndroid ? 'ca-app-pub-6838337741832324/3753923774'
       //     : 'ca-app-pub-6838337741832324/7611910751',
@@ -134,6 +183,7 @@ class HelperFunctions {
           });
         },
         onAdFailedToLoad: (LoadAdError error) {
+          print(error.message);
         },
       ),
     );

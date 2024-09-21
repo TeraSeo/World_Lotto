@@ -30,6 +30,21 @@ class LotteryService {
     }
   }
 
+  Future<Map<String, dynamic>> getLotteryData(String lottoName) async {
+    Map<String, dynamic> data = {};
+    try {
+      CollectionReference lotto = _firestore.collection(lottoName);
+      QuerySnapshot snapshot = await lotto.get();
+      for (var doc in snapshot.docs) {
+        data = doc.data() as Map<String, dynamic>;
+      }
+      return data;
+    } catch (e) {
+      print("Error fetching lotto results: $e");
+      rethrow;
+    }
+  }
+
   Future<List<List<dynamic>>> getMostWorstShownNumbers(String lottoName) async {
     List<List<dynamic>> results = [];
     try {
@@ -306,4 +321,64 @@ class LotteryService {
     return -1;
   }
 
+  List<List<dynamic>> getSeparatedNumberAndBonus(String numberTxt, String lottoName) {
+    List<List<dynamic>> separatedNumbers = [[],[],[]];
+
+    List<dynamic> numbers = numberTxt.split(",");
+    switch (lottoName) {
+      case "usPowerballNumber":
+        separatedNumbers[0] = numbers.getRange(0, 5).toList();
+        separatedNumbers[1] = [numbers[5]];
+        break;
+      case "megaMillionNumber":
+        separatedNumbers[0] = numbers.getRange(0, 5).toList();
+        separatedNumbers[1] = [numbers[5]];
+        break;
+      case "euroMillionNumber":
+        separatedNumbers[0] = numbers.getRange(0, 5).toList();
+        separatedNumbers[1] = numbers.getRange(5, 7).toList();
+        break;
+      case "euroJackpotNumber":
+        separatedNumbers[0] = numbers.getRange(0, 5).toList();
+        separatedNumbers[1] = numbers.getRange(5, 7).toList();
+        break;
+      case "ukLotto":
+        separatedNumbers[0] = numbers.getRange(0, 6).toList();
+        separatedNumbers[1] = [numbers[6]];
+        break;
+      case "laPrimitivaNumber":
+        separatedNumbers[0] = numbers.getRange(0, 6).toList();
+        separatedNumbers[1] = [numbers[6]];
+        separatedNumbers[2] = [numbers[7]];
+        break;
+      case "elGordoNumber":
+        separatedNumbers[0] = numbers.getRange(0, 5).toList();
+        separatedNumbers[1] = [numbers[5]];
+        break;
+      case "superEnalottoNumber":
+        separatedNumbers[0] = numbers.getRange(0, 6).toList();
+        separatedNumbers[1] = [numbers[6]];
+        break;
+      case "ausPowerBallNumber":
+        separatedNumbers[0] = numbers.getRange(0, 7).toList();
+        separatedNumbers[1] = [numbers[7]];
+        break;
+      case "kLottoNumber":
+        separatedNumbers[0] = numbers.getRange(0, 6).toList();
+        separatedNumbers[1] = [numbers[6]];
+        break;
+      case "jLottoNumber_1":
+        separatedNumbers[0] = numbers.getRange(0, 6).toList();
+        separatedNumbers[1] = [numbers[6]];
+        break;
+      case "jLottoNumber_2":
+        separatedNumbers[0] = numbers.getRange(0, 7).toList();
+        separatedNumbers[1] = numbers.getRange(7, 9).toList();
+        break;
+      default:
+        break;
+    }
+
+    return separatedNumbers;
+  }
 }
