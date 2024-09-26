@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 class LotteryDetails {
 
@@ -6,6 +9,8 @@ class LotteryDetails {
 
   List<Map<String, dynamic>> getLotteryDetails() {
     Map<String, dynamic> usPowerballDetail ={
+      "lottoName": "Powerball", 
+      "dbTitle": "usPowerballNumber",
       "title": "americanLotteryInfo.title".tr(),
       "highestPrize": "americanLotteryInfo.highestPrize".tr(),
       "frequency": "americanLotteryInfo.frequency".tr(),
@@ -14,10 +19,18 @@ class LotteryDetails {
       "purchasableArea": "americanLotteryInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("americanLotteryInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("americanLotteryInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("americanLotteryInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("americanLotteryInfo.probabilities".tr().split('^')),
+      "color": [
+        const Color.fromARGB(255, 255, 137, 53),
+        const Color(0xFFff0000)
+      ],
+      "buttonColor": const Color(0xFFff0000),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105) 
     };
 
     Map<String, dynamic> megaMillionDetail = {
+      "lottoName": "MegaMillions",
+      "dbTitle": "megaMillionNumber",
       "title": "megaMillionsInfo.title".tr(),
       "highestPrize": "megaMillionsInfo.highestPrize".tr(),
       "frequency": "megaMillionsInfo.frequency".tr(),
@@ -26,10 +39,18 @@ class LotteryDetails {
       "purchasableArea": "megaMillionsInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("megaMillionsInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("megaMillionsInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("megaMillionsInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("megaMillionsInfo.probabilities".tr().split('^')),
+      "color": [
+        const Color(0xFF00ccff),
+        const Color(0xFF0066ff)
+      ],
+      "buttonColor": const Color(0xFF0066ff),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> euroMillionDetail = {
+      "lottoName": "Euromillon",
+      "dbTitle": "euroMillionNumber",
       "title": "euroMillionsInfo.title".tr(),
       "highestPrize": "euroMillionsInfo.highestPrize".tr(),
       "frequency": "euroMillionsInfo.frequency".tr(),
@@ -38,10 +59,18 @@ class LotteryDetails {
       "purchasableArea": "euroMillionsInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("euroMillionsInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("euroMillionsInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("euroMillionsInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("euroMillionsInfo.probabilities".tr().split('^')),
+      "color": [
+        const Color.fromARGB(255, 201, 243, 160),
+        const Color.fromARGB(255, 45, 50, 198),
+      ],
+      "buttonColor": Color.fromARGB(255, 45, 50, 198),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
      Map<String, dynamic> euroJackpotDetail = {
+      "lottoName": "EuroJackpot",
+      "dbTitle": "euroJackpotNumber",
       "title": "euroJackpotInfo.title".tr(),
       "highestPrize": "euroJackpotInfo.highestPrize".tr(),
       "frequency": "euroJackpotInfo.frequency".tr(),
@@ -50,10 +79,18 @@ class LotteryDetails {
       "purchasableArea": "euroJackpotInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("euroJackpotInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("euroJackpotInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("euroJackpotInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("euroJackpotInfo.probabilities".tr().split('^')),
+      "color": [
+        const Color.fromARGB(255, 254, 251, 138), 
+        const Color.fromARGB(255, 242, 189, 16), 
+      ],
+      "buttonColor": const Color.fromARGB(255, 242, 189, 16),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> ukLottoDetail = {
+      "lottoName": "UkLotto",
+      "dbTitle": "ukLotto",
       "title": "ukLottoInfo.title".tr(),
       "highestPrize": "ukLottoInfo.highestPrize".tr(),
       "frequency": "ukLottoInfo.frequency".tr(),
@@ -62,10 +99,18 @@ class LotteryDetails {
       "purchasableArea": "ukLottoInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("ukLottoInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("ukLottoInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("ukLottoInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("ukLottoInfo.probabilities".tr().split('^')),
+      "color": [
+        const Color.fromARGB(255, 255, 194, 218),
+        const Color.fromARGB(255, 21, 0, 255), 
+      ],
+      "buttonColor": const Color.fromARGB(255, 21, 0, 255), 
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> laPrimitivaDetail = {
+      "lottoName": "La Primitiva",
+      "dbTitle": "laPrimitivaNumber",
       "title": "spanishLaPrimitivaInfo.title".tr(),
       "highestPrize": "spanishLaPrimitivaInfo.highestPrize".tr(),
       "frequency": "spanishLaPrimitivaInfo.frequency".tr(),
@@ -74,10 +119,15 @@ class LotteryDetails {
       "purchasableArea": "spanishLaPrimitivaInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("spanishLaPrimitivaInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("spanishLaPrimitivaInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("spanishLaPrimitivaInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("spanishLaPrimitivaInfo.probabilities".tr().split('^')),
+      "color": [Color.fromARGB(255, 234, 113, 105), Color.fromARGB(255, 255, 165, 0)],
+      "buttonColor": Color.fromARGB(255, 255, 165, 0),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> elGordoDetail = {
+      "lottoName": "El Gordo de La Primitiva",
+      "dbTitle": "elGordoNumber",
       "title": "elGordoLotteryInfo.title".tr(),
       "highestPrize": "elGordoLotteryInfo.highestPrize".tr(),
       "frequency": "elGordoLotteryInfo.frequency".tr(),
@@ -86,10 +136,15 @@ class LotteryDetails {
       "purchasableArea": "elGordoLotteryInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("elGordoLotteryInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("elGordoLotteryInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("elGordoLotteryInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("elGordoLotteryInfo.probabilities".tr().split('^')),
+      "color": [Color.fromARGB(255, 176, 243, 31), Color.fromARGB(255, 0, 128, 0)],
+      "buttonColor": Color.fromARGB(255, 0, 128, 0),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> superEnalottoDetail = {
+      "lottoName": "SuperEnalotto",
+      "dbTitle": "superEnalottoNumber",
       "title": "superEnalottoInfo.title".tr(),
       "highestPrize": "superEnalottoInfo.highestPrize".tr(),
       "frequency": "superEnalottoInfo.frequency".tr(),
@@ -98,10 +153,15 @@ class LotteryDetails {
       "purchasableArea": "superEnalottoInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("superEnalottoInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("superEnalottoInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("superEnalottoInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("superEnalottoInfo.probabilities".tr().split('^')),
+      "color": [Color.fromARGB(255, 13, 175, 40), Color.fromARGB(255, 227, 220, 89)],
+      "buttonColor": Color.fromARGB(255, 13, 175, 40),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> ausPowerballDetail = {
+      "lottoName": "Powerball",
+      "dbTitle": "ausPowerBallNumber",
       "title": "australiaPowerballInfo.title".tr(),
       "highestPrize": "australiaPowerballInfo.highestPrize".tr(),
       "frequency": "australiaPowerballInfo.frequency".tr(),
@@ -110,10 +170,15 @@ class LotteryDetails {
       "purchasableArea": "australiaPowerballInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("australiaPowerballInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("australiaPowerballInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("australiaPowerballInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("australiaPowerballInfo.probabilities".tr().split('^')),
+      "color": [Color.fromARGB(255, 76, 73, 227), Color.fromARGB(255, 215, 37, 37)],
+      "buttonColor": Color.fromARGB(255, 215, 37, 37),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> kLottoDetail = {
+      "lottoName": "Lotto 6/45",
+      "dbTitle": "kLottoNumber",
       "title": "koreanLotteryInfo.title".tr(),
       "highestPrize": "koreanLotteryInfo.highestPrize".tr(),
       "frequency": "koreanLotteryInfo.frequency".tr(),
@@ -122,10 +187,15 @@ class LotteryDetails {
       "purchasableArea": "koreanLotteryInfo.purchasableArea".tr(),
       "prizeDetails": List<String>.from("koreanLotteryInfo.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("koreanLotteryInfo.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("koreanLotteryInfo.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("koreanLotteryInfo.probabilities".tr().split('^')),
+      "color": [Color.fromARGB(255, 174, 20, 246), Color.fromARGB(255, 255, 128, 0)],
+      "buttonColor": Color.fromARGB(255, 255, 128, 0),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> jLotto_1Detail = {
+      "lottoName": "Lotto 6",
+      "dbTitle": "jLottoNumber_1",
       "title": "japaneseLottery6Info.title".tr(),
       "highestPrize": "japaneseLottery6Info.highestPrize".tr(),
       "frequency": "japaneseLottery6Info.frequency".tr(),
@@ -134,10 +204,15 @@ class LotteryDetails {
       "purchasableArea": "japaneseLottery6Info.purchasableArea".tr(),
       "prizeDetails": List<String>.from("japaneseLottery6Info.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("japaneseLottery6Info.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("japaneseLottery6Info.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("japaneseLottery6Info.probabilities".tr().split('^')),
+      "color": [Colors.red, Colors.orange],
+      "buttonColor": Colors.orange,
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     Map<String, dynamic> jLotto_2Detail = {
+      "lottoName": "Lotto 7",
+      "dbTitle": "jLottoNumber_2",
       "title": "japaneseLottery7Info.title".tr(),
       "highestPrize": "japaneseLottery7Info.highestPrize".tr(),
       "frequency": "japaneseLottery7Info.frequency".tr(),
@@ -146,7 +221,10 @@ class LotteryDetails {
       "purchasableArea": "japaneseLottery7Info.purchasableArea".tr(),
       "prizeDetails": List<String>.from("japaneseLottery7Info.prizeDetails".tr().split('^')),
       "winningMethods": List<String>.from("japaneseLottery7Info.winningMethods".tr().split('^')),
-      "probabilities": List<String>.from("japaneseLottery7Info.probabilities".tr().split('^'))
+      "probabilities": List<String>.from("japaneseLottery7Info.probabilities".tr().split('^')),
+      "color": [const Color.fromARGB(255, 220, 237, 33), Colors.red],
+      "buttonColor": Colors.red,
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     };
 
     lotteryDetails.add(usPowerballDetail);

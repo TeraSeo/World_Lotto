@@ -14,8 +14,8 @@ class PrizeStatusText extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(date, style: TextStyle(color: Colors.white, fontSize:  screenWidth * 0.033)),
-          Text(prize, style: TextStyle(fontSize: screenWidth * 0.08, color: Colors.white, fontWeight: FontWeight.w700))
+          Text(date, style: TextStyle(color: Colors.white, fontSize:  screenWidth * 0.033, decoration: TextDecoration.none)),
+          Text(prize, style: TextStyle(fontSize: screenWidth * 0.08, color: Colors.white, fontWeight: FontWeight.w700, decoration: TextDecoration.none))
         ],
       ),
     );

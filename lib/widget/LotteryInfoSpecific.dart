@@ -17,37 +17,33 @@ class _LotteryInfoSpecificState extends State<LotteryInfoSpecific> {
 
   @override
   Widget build(BuildContext context) { 
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      decoration: const BoxDecoration(
+      padding: EdgeInsets.only(
+        top: screenHeight * 0.08,
+        left: screenWidth * 0.05,
+        right: screenWidth * 0.05
+      ),
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment(0.8, 1),
-          colors: <Color>[
-            Color.fromARGB(255, 107, 59, 202),
-            Color.fromARGB(255, 221, 81, 228),
-            Color.fromARGB(255, 230, 119, 198),
-            Color.fromARGB(255, 216, 97, 147),
-            Color.fromARGB(255, 233, 105, 124),
-            Color.fromARGB(255, 211, 142, 133),
-            Color.fromARGB(255, 238, 172, 139),
-            Color.fromARGB(255, 232, 188, 144),
-          ],
+          colors: widget.lotteryDetails["color"],
           tileMode: TileMode.mirror,
         ),
       ),
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40),
-            Container(
-              padding: EdgeInsets.all(10),
+            SizedBox(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back, size: 28, color: Colors.white),
+                    icon: Icon(Icons.arrow_back_ios, size: 25, color: Colors.white),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -55,7 +51,7 @@ class _LotteryInfoSpecificState extends State<LotteryInfoSpecific> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
@@ -152,7 +148,6 @@ class _LotteryInfoSpecificState extends State<LotteryInfoSpecific> {
         borderRadius: BorderRadius.circular(15),
       ),
       elevation: 2,
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

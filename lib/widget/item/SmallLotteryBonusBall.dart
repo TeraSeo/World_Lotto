@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 
-class LotteryNumberBall extends StatefulWidget {
+class SmallLotteryBonusBall extends StatefulWidget {
   final dynamic number;
-  const LotteryNumberBall({super.key, required this.number});
+  const SmallLotteryBonusBall({super.key, required this.number});
 
   @override
-  State<LotteryNumberBall> createState() => _LotteryNumberBallState();
+  State<SmallLotteryBonusBall> createState() => _SmallLotteryBonusBallState();
 }
 
-class _LotteryNumberBallState extends State<LotteryNumberBall> {
+class _SmallLotteryBonusBallState extends State<SmallLotteryBonusBall> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final screenWidth = MediaQuery.sizeOf(context).width;
 
     return Container(
-      width: screenWidth * 0.09,
-      height: screenWidth * 0.09,
+      width: screenHeight * 0.03,
+      height: screenHeight * 0.03,
       margin: EdgeInsets.only(right: screenHeight * 0.01),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.red,
         shape: BoxShape.circle,
         border: Border.all(
-          color: Colors.black, 
+          color: Colors.white, 
           width: 1.5,
         ),
         boxShadow: [
@@ -39,8 +38,8 @@ class _LotteryNumberBallState extends State<LotteryNumberBall> {
         style: TextStyle(
           fontSize: screenHeight * 0.015, 
           fontWeight: FontWeight.bold, 
-          decoration: TextDecoration.none,
-          color: Colors.black
+          color: Colors.white,
+          decoration: TextDecoration.none
         ),
       ),
     );

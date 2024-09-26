@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottery_kr/widget/SpecificInfoButton.dart';
+import 'package:lottery_kr/widget/buttons/HowToPlayButton.dart';
 
 class LotteryInfoCard extends StatefulWidget {
   final Map<String, dynamic> lotteryDetails;
@@ -12,80 +12,98 @@ class LotteryInfoCard extends StatefulWidget {
 }
 
 class _LotteryInfoCardState extends State<LotteryInfoCard> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[300],
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.local_activity, color: Colors.teal[900], size: 30),
-                SizedBox(width: 10),
-                Expanded( // Wrapping Text with Expanded
-                  child: Text(
-                    widget.lotteryDetails["title"]!,
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal[900],
-                      ),
-                    ),
-                    overflow: TextOverflow.ellipsis, // Handling overflow with ellipsis
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            _buildInfoRow(Icons.monetization_on, widget.lotteryDetails["highestPrize"]!),
-            _buildInfoRow(Icons.schedule, widget.lotteryDetails["frequency"]!),
-            _buildInfoRow(Icons.attach_money, widget.lotteryDetails["ticketPrice"]!),
-            _buildInfoRow(Icons.calendar_today, widget.lotteryDetails["drawDate"]!),
-            Row(
-              children: [
-                Icon(Icons.area_chart, color: Colors.black, size: 20),
-                SizedBox(width: 10),
-                Expanded( // Wrapping Text with Expanded
-                  child: Text(
-                    "purchasableArea".tr() + ": " + widget.lotteryDetails["purchasableArea"]!,
-                    style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                    overflow: TextOverflow.ellipsis, // Handling overflow with ellipsis
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            SpecificButton(lotteryDetails: widget.lotteryDetails),
-          ],
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final screenHeight = MediaQuery.sizeOf(context).height;
+
+    return Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          colors: widget.lotteryDetails["color"], 
+          center: Alignment.center, 
+          radius: 1.2,
         ),
+        borderRadius: BorderRadius.all(Radius.circular(screenWidth * 0.05)),
+        boxShadow: [
+          BoxShadow(color: Colors.grey, blurRadius: 1),
+        ],
+      ),
+      padding: EdgeInsets.all(screenWidth * 0.05),
+      margin: EdgeInsets.only(bottom: screenHeight * 0.02),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.local_activity, color: Colors.white, size: screenHeight * 0.032),
+              SizedBox(width: screenWidth * 0.023),
+              Expanded(
+                child: Text(
+                  widget.lotteryDetails["title"]!,
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
+                      fontSize: screenHeight * 0.026,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: screenHeight * 0.013),
+          _buildInfoRow(Icons.monetization_on, widget.lotteryDetails["highestPrize"]!, screenHeight * 0.023, screenWidth * 0.02, screenHeight * 0.018),
+          _buildInfoRow(Icons.schedule, widget.lotteryDetails["frequency"]!, screenHeight * 0.023, screenWidth * 0.02, screenHeight * 0.018),
+          _buildInfoRow(Icons.attach_money, widget.lotteryDetails["ticketPrice"]!, screenHeight * 0.023, screenWidth * 0.02, screenHeight * 0.018),
+          _buildInfoRow(Icons.calendar_today, widget.lotteryDetails["drawDate"]!, screenHeight * 0.023, screenWidth * 0.02, screenHeight * 0.018),
+          Row(
+            children: [
+              Icon(Icons.area_chart, color: Colors.white, size: screenHeight * 0.023),
+              SizedBox(width: screenWidth * 0.02),
+              Expanded(
+                child: Text(
+                  "purchasableArea".tr() + ": " + widget.lotteryDetails["purchasableArea"]!,
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
+                      fontSize: screenHeight * 0.018,
+                      color: Colors.white,
+                    ),
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          SizedBox(
+            width: 130,
+            child: HowToPlayButton(lotteryData: widget.lotteryDetails),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildInfoRow(IconData icon, String text) {
+  Widget _buildInfoRow(IconData icon, String text, double iconSize, double space, double textSize) {
     return Row(
       children: [
-        Icon(icon, color: Colors.black, size: 20),
-        SizedBox(width: 10),
+        Icon(icon, color: Colors.white, size: iconSize),
+        SizedBox(width: space),
         Expanded( // Wrapping Text with Expanded
           child: Text(
             text,
             style: GoogleFonts.roboto(
               textStyle: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
+                fontSize: textSize,
+                color: Colors.white,
               ),
             ),
             overflow: TextOverflow.ellipsis, // Handling overflow with ellipsis

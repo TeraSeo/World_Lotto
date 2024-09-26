@@ -12,10 +12,11 @@ class _LotteryReintegroBallState extends State<LotteryReintegroBall> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
-
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    
     return Container(
-      width: screenHeight * 0.04,
-      height: screenHeight * 0.04,
+      width: screenWidth * 0.09,
+      height: screenWidth * 0.09,
       margin: EdgeInsets.only(right: screenHeight * 0.01),
       decoration: BoxDecoration(
         color: Colors.green,
@@ -38,7 +39,9 @@ class _LotteryReintegroBallState extends State<LotteryReintegroBall> {
         style: TextStyle(
           fontSize: screenHeight * 0.015, 
           fontWeight: FontWeight.bold,
-          color: Colors.white 
+          color: Colors.white,
+          decoration: TextDecoration.none
+
         ),
       ),
     );

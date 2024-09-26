@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottery_kr/service/LotteryService.dart';
 import 'package:lottery_kr/widget/buttons/HowToPlayButton.dart';
-import 'package:lottery_kr/widget/buttons/NumberGenerateButton.dart';
+import 'package:lottery_kr/widget/buttons/NumberGenerateNavigateButton.dart';
 import 'package:lottery_kr/widget/texts/LastNumberText.dart';
 import 'package:lottery_kr/widget/texts/LotteryCardTitleText.dart';
 import 'package:lottery_kr/widget/texts/PrizeStatusText.dart';
@@ -97,7 +97,7 @@ class _LotteryCardState extends State<LotteryCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               HowToPlayButton(lotteryData: widget.lotteryData),
-              NumberGenerateButton(lotteryData: widget.lotteryData)
+              NumberGenerateNavigateButton(lotteryData: lotteryData!, lotteryDetails: widget.lotteryData)
             ],
           )
         ],

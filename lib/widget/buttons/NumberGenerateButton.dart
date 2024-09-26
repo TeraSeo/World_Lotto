@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lottery_kr/service/NumberGenerateService.dart';
 
 class NumberGenerateButton extends StatefulWidget {
-  final Map<String, dynamic> lotteryData;
-  const NumberGenerateButton({super.key, required this.lotteryData});
+  final Map<String, dynamic> lotteryDetails;
+  final VoidCallback generateNumber;
+  const NumberGenerateButton({super.key, required this.lotteryDetails, required this.generateNumber});
 
   @override
   State<NumberGenerateButton> createState() => _NumberGenerateButtonState();
@@ -18,11 +19,11 @@ class _NumberGenerateButtonState extends State<NumberGenerateButton> {
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return Container(
-      height: screenHeight * 0.045,
+      height: screenHeight * 0.055,
       margin: EdgeInsets.only(top: screenHeight * 0.02),
       decoration: BoxDecoration(
-        color: widget.lotteryData["buttonColor"],
-        borderRadius: BorderRadius.circular(15),
+        color: widget.lotteryDetails["backgroundColor"],
+        borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.15),
@@ -33,13 +34,12 @@ class _NumberGenerateButtonState extends State<NumberGenerateButton> {
       ),
       child: MaterialButton(
         onPressed: () {
-          numberGenerateService.navigateToNumberGeneratorPage(widget.lotteryData["dbTitle"], context);
+          widget.generateNumber();
         },
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.info_outline, size: screenWidth * 0.041, color: Colors.white),
-            SizedBox(width: screenWidth * 0.015),
-            Text("Generate number", style: TextStyle(fontSize: screenWidth * 0.029, fontWeight: FontWeight.bold, color: Colors.white))
+            Text("Generate number", style: TextStyle(fontSize: screenWidth * 0.033, fontWeight: FontWeight.bold, color: Colors.white))
           ],
         ),
       )

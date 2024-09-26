@@ -14,7 +14,7 @@ class LotteryCardTitleText extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: screenWidth * 0.063), maxLines: 1)
+          Text(title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: screenWidth * 0.063, decoration: TextDecoration.none), maxLines: 1)
         ],
       ),
     );

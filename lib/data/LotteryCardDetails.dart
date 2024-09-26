@@ -19,7 +19,10 @@ class LotteryCardDetails {
         const Color.fromARGB(255, 255, 137, 53),
         const Color(0xFFff0000)
       ],
-      "buttonColor": const Color(0xFFff0000)
+      "buttonColor": const Color(0xFFff0000),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105),
+      "dialogTopColor": Color.fromARGB(255, 243, 0, 0),
+      "dialogButtonColor": const Color.fromARGB(255, 238, 121, 121)
     },
     {
       "lottoName": "MegaMillions",
@@ -37,7 +40,8 @@ class LotteryCardDetails {
         const Color(0xFF00ccff),
         const Color(0xFF0066ff)
       ],
-      "buttonColor": const Color(0xFF0066ff)
+      "buttonColor": const Color(0xFF0066ff),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     },
   ];
 
@@ -58,7 +62,8 @@ class LotteryCardDetails {
         const Color.fromARGB(255, 201, 243, 160),
         const Color.fromARGB(255, 45, 50, 198),
       ],
-      "buttonColor": Color.fromARGB(255, 45, 50, 198)
+      "buttonColor": Color.fromARGB(255, 45, 50, 198),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     },
     {
       "lottoName": "EuroJackpot",
@@ -77,6 +82,7 @@ class LotteryCardDetails {
         const Color.fromARGB(255, 242, 189, 16), 
       ],
       "buttonColor": const Color.fromARGB(255, 242, 189, 16),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     },
   ];
 
@@ -98,6 +104,7 @@ class LotteryCardDetails {
         const Color.fromARGB(255, 21, 0, 255), 
       ],
       "buttonColor": const Color.fromARGB(255, 21, 0, 255), 
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     },
   ];
 
@@ -115,7 +122,8 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("spanishLaPrimitivaInfo.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("spanishLaPrimitivaInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 234, 113, 105), Color.fromARGB(255, 255, 165, 0)],
-      "buttonColor": Color.fromARGB(255, 255, 165, 0)
+      "buttonColor": Color.fromARGB(255, 255, 165, 0),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     },
     {
       "lottoName": "El Gordo de La Primitiva",
@@ -130,7 +138,8 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("elGordoLotteryInfo.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("elGordoLotteryInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 176, 243, 31), Color.fromARGB(255, 0, 128, 0)],
-      "buttonColor": Color.fromARGB(255, 0, 128, 0)
+      "buttonColor": Color.fromARGB(255, 0, 128, 0),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     }
   ];
 
@@ -148,7 +157,8 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("superEnalottoInfo.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("superEnalottoInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 13, 175, 40), Color.fromARGB(255, 227, 220, 89)],
-      "buttonColor": Color.fromARGB(255, 13, 175, 40)
+      "buttonColor": Color.fromARGB(255, 13, 175, 40),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     }
   ];
 
@@ -166,7 +176,8 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("australiaPowerballInfo.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("australiaPowerballInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 76, 73, 227), Color.fromARGB(255, 215, 37, 37)],
-      "buttonColor": Color.fromARGB(255, 215, 37, 37)
+      "buttonColor": Color.fromARGB(255, 215, 37, 37),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     }
   ];
 
@@ -184,7 +195,8 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("koreanLotteryInfo.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("koreanLotteryInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 174, 20, 246), Color.fromARGB(255, 255, 128, 0)],
-      "buttonColor": Color.fromARGB(255, 255, 128, 0)
+      "buttonColor": Color.fromARGB(255, 255, 128, 0),
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     }
   ];
 
@@ -202,7 +214,8 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("japaneseLottery6Info.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("japaneseLottery6Info.probabilities".tr().split('^')),
       "color": [Colors.red, Colors.orange],
-      "buttonColor": Colors.orange
+      "buttonColor": Colors.orange,
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     },
     {
       "lottoName": "Lotto 7",
@@ -217,7 +230,8 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("japaneseLottery7Info.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("japaneseLottery7Info.probabilities".tr().split('^')),
       "color": [const Color.fromARGB(255, 220, 237, 33), Colors.red],
-      "buttonColor": Colors.red
+      "buttonColor": Colors.red,
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
     }
   ];
 }

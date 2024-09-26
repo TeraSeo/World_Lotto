@@ -31,8 +31,7 @@ class CommonWidget {
             DrawerHeader(
               padding: EdgeInsets.all(30),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 59, 67, 97)
-                // color: Color(0xFF003366)
+                color: const Color.fromARGB(255, 56, 54, 54)
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -259,7 +258,7 @@ class CommonWidget {
     );
   }
 
-  Widget homeDrawerWidget(BuildContext context) {
+  Widget homeDrawerWidget(BuildContext context, List<Color> background) {
     return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -267,20 +266,10 @@ class CommonWidget {
             DrawerHeader(
               padding: EdgeInsets.all(30),
               decoration: BoxDecoration(
-                // color: Color.fromARGB(255, 59, 67, 97),
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment(0.8, 1),
-                  colors: <Color>[
-                    Color.fromARGB(255, 107, 59, 202),
-                    Color.fromARGB(255, 221, 81, 228),
-                    Color.fromARGB(255, 230, 119, 198),
-                    Color.fromARGB(255, 216, 97, 147),
-                    Color.fromARGB(255, 233, 105, 124),
-                    Color.fromARGB(255, 211, 142, 133),
-                    Color.fromARGB(255, 238, 172, 139),
-                    Color.fromARGB(255, 232, 188, 144),
-                  ],
+                  colors: [background[0], background[1]],
                   tileMode: TileMode.mirror,
                 ),
               ),

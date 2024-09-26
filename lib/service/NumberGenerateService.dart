@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottery_kr/page/generator/USPowerballGenerator.dart';
@@ -15,12 +17,43 @@ class NumberGenerateService {
     return _instance;
   }
 
-  void navigateToNumberGeneratorPage(String title, BuildContext context) {
-    switch (title) {
+  int getNumberOfBalls(String dbTitle) {
+    switch(dbTitle) {
+      case "usPowerballNumber":
+        return 69;
+      case "megaMillionNumber":
+        return 70;
+      case "euroMillionNumber":
+        return 50;
+      case "euroJackpotNumber":
+        return 50;
+      case "ukLotto":
+        return 59;
+      case "laPrimitivaNumber":
+        return 49;
+      case "elGordoNumber":
+        return 54;
+      case "superEnalottoNumber":
+        return 90;
+      case "ausPowerBallNumber":
+        return 35;
+      case "kLottoNumber":
+        return 45;
+      case "jLottoNumber_1":
+        return 43;
+      case "jLottoNumber_2":
+        return 37;
+      default: 
+        return 0;
+    }
+  }
+
+  void navigateToNumberGeneratorPage(Map<String, dynamic> lotteryDetails, Map<String, dynamic> lotteryData, BuildContext context) {
+    switch (lotteryDetails["dbTitle"]) {
       case "usPowerballNumber":
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => USPowerballGenerator()),
+          MaterialPageRoute(builder: (context) => USPowerballGenerator(lotteryDetails: lotteryDetails, lotteryData: lotteryData)),
         );
         break;
       case "megaMillionNumber":
@@ -200,4 +233,31 @@ class NumberGenerateService {
     return res;
   }
 
+  Map<String, List<int>>? generateNumberByLottoName(String lottoName) {
+    switch(lottoName) {
+      case "Powerball":
+        return generateUsPowerballNumber();
+      default:
+        return null;
+    }
+  }
+
+  Map<String, List<int>>? generateUsPowerballNumber() {
+    Map<String, List<int>> numbersMap;
+    List<int> _lottoNumbers = [];
+    List<int> _bonusNumber = [];
+    Random random = Random();
+    while (_lottoNumbers.length < 5) {
+      int nextNumber = random.nextInt(69) + 1;
+      if (!_lottoNumbers.contains(nextNumber)) {
+        _lottoNumbers.add(nextNumber);
+      }
+    }
+    _lottoNumbers.sort();
+    int powerball;
+    powerball = random.nextInt(26) + 1;
+    _bonusNumber.add(powerball);
+    numbersMap = {'numbers': _lottoNumbers, 'bonus': _bonusNumber};
+    return numbersMap;
+  }
 }

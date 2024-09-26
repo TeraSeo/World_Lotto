@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 
-class LotteryNumberBall extends StatefulWidget {
+class GenerateNumberBall extends StatefulWidget {
   final dynamic number;
-  const LotteryNumberBall({super.key, required this.number});
+  const GenerateNumberBall({super.key, required this.number});
 
   @override
-  State<LotteryNumberBall> createState() => _LotteryNumberBallState();
+  State<GenerateNumberBall> createState() => _GenerateNumberBallState();
 }
 
-class _LotteryNumberBallState extends State<LotteryNumberBall> {
+class _GenerateNumberBallState extends State<GenerateNumberBall> {
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.sizeOf(context).height;
     final screenWidth = MediaQuery.sizeOf(context).width;
+    final screenHeight = MediaQuery.sizeOf(context).height;
 
     return Container(
-      width: screenWidth * 0.09,
-      height: screenWidth * 0.09,
-      margin: EdgeInsets.only(right: screenHeight * 0.01),
+      width: screenWidth * 0.085,
+      height: screenWidth * 0.085,
       decoration: BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,

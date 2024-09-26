@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LotteryService {
   // Private constructor
@@ -380,5 +383,32 @@ class LotteryService {
     }
 
     return separatedNumbers;
+  }
+
+  Future<void> saveNumbers(String name, List<Map<String, List<dynamic>>> numbers) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Convert the list of maps to a List of Map<String, dynamic> for json encoding
+    List<Map<String, dynamic>> numbersToSave = numbers.map((map) {
+      return map.map((key, value) => MapEntry(key, value));
+    }).toList();
+    String numbersJson = jsonEncode(numbersToSave);
+    await prefs.setString(name, numbersJson);
+  }
+
+  Future<List<Map<String, List<dynamic>>>?> loadNumbers(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? numbersJson = prefs.getString(name);
+    
+    if (numbersJson != null) {
+      // Decode the JSON back to a List of Maps
+      List<dynamic> decodedJson = jsonDecode(numbersJson);
+      List<Map<String, List<dynamic>>> numbers = decodedJson.map((item) {
+        return Map<String, List<dynamic>>.from(item);
+      }).toList();
+      
+      return numbers;
+    }
+    
+    return null;
   }
 }
