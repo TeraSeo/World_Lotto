@@ -18,11 +18,16 @@ class LotteryCardDetails {
       "color": [
         const Color.fromARGB(255, 255, 137, 53),
         const Color(0xFFff0000)
-      ],
+      ], 
       "buttonColor": const Color(0xFFff0000),
       "backgroundColor": const Color.fromARGB(255, 241, 105, 105),
       "dialogTopColor": Color.fromARGB(255, 243, 0, 0),
-      "dialogButtonColor": const Color.fromARGB(255, 238, 121, 121)
+      "dialogButtonColor": const Color.fromARGB(255, 238, 121, 121),
+      "normalNumberCount": 5,
+      "bonusNumberCount": 1,
+      "bonusNumberText": "Select Powerball Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     },
     {
       "lottoName": "MegaMillions",
@@ -41,7 +46,14 @@ class LotteryCardDetails {
         const Color(0xFF0066ff)
       ],
       "buttonColor": const Color(0xFF0066ff),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": const Color.fromARGB(255, 83, 156, 240),
+      "dialogTopColor": const Color(0xFF0066ff),
+      "dialogButtonColor": const Color.fromARGB(255, 61, 143, 243),
+      "normalNumberCount": 5,
+      "bonusNumberCount": 1,
+      "bonusNumberText": "Select Megaball Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     },
   ];
 
@@ -63,7 +75,14 @@ class LotteryCardDetails {
         const Color.fromARGB(255, 45, 50, 198),
       ],
       "buttonColor": Color.fromARGB(255, 45, 50, 198),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": const Color.fromARGB(255, 136, 154, 243),
+      "dialogTopColor": const Color.fromARGB(255, 45, 50, 198),
+      "dialogButtonColor": const Color.fromARGB(255, 57, 126, 210),
+      "normalNumberCount": 5,
+      "bonusNumberCount": 2,
+      "bonusNumberText": "Select Lucky Stars Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     },
     {
       "lottoName": "EuroJackpot",
@@ -82,7 +101,14 @@ class LotteryCardDetails {
         const Color.fromARGB(255, 242, 189, 16), 
       ],
       "buttonColor": const Color.fromARGB(255, 242, 189, 16),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": const Color.fromARGB(255, 243, 210, 103),
+      "dialogTopColor": const Color.fromARGB(255, 242, 189, 16),
+      "dialogButtonColor": const Color.fromARGB(255, 240, 219, 149),
+      "normalNumberCount": 5,
+      "bonusNumberCount": 2,
+      "bonusNumberText": "Select Lucky Stars Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     },
   ];
 
@@ -104,7 +130,14 @@ class LotteryCardDetails {
         const Color.fromARGB(255, 21, 0, 255), 
       ],
       "buttonColor": const Color.fromARGB(255, 21, 0, 255), 
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": const Color.fromARGB(255, 84, 69, 245),
+      "dialogTopColor": const Color.fromARGB(255, 21, 0, 255),
+      "dialogButtonColor": const Color.fromARGB(255, 101, 89, 236),
+      "normalNumberCount": 6,
+      "bonusNumberCount": 0,
+      "bonusNumberText": "",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     },
   ];
 
@@ -123,7 +156,14 @@ class LotteryCardDetails {
       "probabilities": List<String>.from("spanishLaPrimitivaInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 234, 113, 105), Color.fromARGB(255, 255, 165, 0)],
       "buttonColor": Color.fromARGB(255, 255, 165, 0),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": Color.fromARGB(255, 246, 181, 59),
+      "dialogTopColor": Color.fromARGB(255, 255, 165, 0),
+      "dialogButtonColor": Color.fromARGB(255, 241, 184, 78),
+      "normalNumberCount": 6,
+      "bonusNumberCount": 1,
+      "bonusNumberText": "Select Reintegro Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     },
     {
       "lottoName": "El Gordo de La Primitiva",
@@ -139,7 +179,14 @@ class LotteryCardDetails {
       "probabilities": List<String>.from("elGordoLotteryInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 176, 243, 31), Color.fromARGB(255, 0, 128, 0)],
       "buttonColor": Color.fromARGB(255, 0, 128, 0),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": Color.fromARGB(255, 29, 126, 29),
+      "dialogTopColor": Color.fromARGB(255, 0, 128, 0),
+      "dialogButtonColor": Color.fromARGB(255, 32, 120, 32),
+      "normalNumberCount": 5,
+      "bonusNumberCount": 1,
+      "bonusNumberText": "Select Key Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     }
   ];
 
@@ -158,13 +205,20 @@ class LotteryCardDetails {
       "probabilities": List<String>.from("superEnalottoInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 13, 175, 40), Color.fromARGB(255, 227, 220, 89)],
       "buttonColor": Color.fromARGB(255, 13, 175, 40),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": Color.fromARGB(255, 55, 183, 79),
+      "dialogTopColor": Color.fromARGB(255, 13, 175, 40),
+      "dialogButtonColor": Color.fromARGB(255, 80, 178, 80),
+      "normalNumberCount": 6,
+      "bonusNumberCount": 1,
+      "bonusNumberText": "Select Jolly Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     }
   ];
 
   List<Map<String, dynamic>> ausLotteries = [
     {
-      "lottoName": "Powerball",
+      "lottoName": "AU Powerball",
       "dbTitle": "ausPowerBallNumber",
       "title": "australiaPowerballInfo.title".tr(),
       "highestPrize": "australiaPowerballInfo.highestPrize".tr(),
@@ -176,8 +230,15 @@ class LotteryCardDetails {
       "winningMethods": List<String>.from("australiaPowerballInfo.winningMethods".tr().split('^')),
       "probabilities": List<String>.from("australiaPowerballInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 76, 73, 227), Color.fromARGB(255, 215, 37, 37)],
-      "buttonColor": Color.fromARGB(255, 215, 37, 37),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "buttonColor": const Color.fromARGB(255, 215, 37, 37),
+      "backgroundColor": Color.fromARGB(255, 207, 58, 58),
+      "dialogTopColor": Color.fromARGB(255, 215, 37, 37),
+      "dialogButtonColor": Color.fromARGB(255, 202, 78, 78),
+      "normalNumberCount": 7,
+      "bonusNumberCount": 1,
+      "bonusNumberText": "Select Powerball Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     }
   ];
 
@@ -196,7 +257,14 @@ class LotteryCardDetails {
       "probabilities": List<String>.from("koreanLotteryInfo.probabilities".tr().split('^')),
       "color": [Color.fromARGB(255, 174, 20, 246), Color.fromARGB(255, 255, 128, 0)],
       "buttonColor": Color.fromARGB(255, 255, 128, 0),
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": Color.fromARGB(255, 248, 143, 38),
+      "dialogTopColor": Color.fromARGB(255, 255, 128, 0),
+      "dialogButtonColor": Color.fromARGB(255, 239, 141, 42),
+      "normalNumberCount": 5,
+      "bonusNumberCount": 1,
+      "bonusNumberText": "Select Bonus Number",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     }
   ];
 
@@ -215,7 +283,14 @@ class LotteryCardDetails {
       "probabilities": List<String>.from("japaneseLottery6Info.probabilities".tr().split('^')),
       "color": [Colors.red, Colors.orange],
       "buttonColor": Colors.orange,
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": const Color.fromARGB(255, 242, 162, 42),
+      "dialogTopColor": Colors.orange,
+      "dialogButtonColor": const Color.fromARGB(255, 251, 176, 64),
+      "normalNumberCount": 6,
+      "bonusNumberCount": 0,
+      "bonusNumberText": "",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     },
     {
       "lottoName": "Lotto 7",
@@ -231,7 +306,14 @@ class LotteryCardDetails {
       "probabilities": List<String>.from("japaneseLottery7Info.probabilities".tr().split('^')),
       "color": [const Color.fromARGB(255, 220, 237, 33), Colors.red],
       "buttonColor": Colors.red,
-      "backgroundColor": const Color.fromARGB(255, 241, 105, 105)
+      "backgroundColor": const Color.fromARGB(255, 241, 105, 105),
+      "dialogTopColor": const Color.fromARGB(255, 236, 142, 142),
+      "dialogButtonColor": const Color.fromARGB(255, 241, 105, 105),
+      "normalNumberCount": 7,
+      "bonusNumberCount": 0,
+      "bonusNumberText": "",
+      "reintegroNumberCount": 0,
+      "reintegroNumberText": ""
     }
   ];
 }

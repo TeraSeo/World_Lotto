@@ -395,6 +395,21 @@ class LotteryService {
     await prefs.setString(name, numbersJson);
   }
 
+  void saveSeparateNumber(String name, Map<String, List<dynamic>> number) {
+    LotteryService lotteryService = LotteryService();
+    lotteryService.loadNumbers(name).then((value) {
+      if (value != null) {
+        List<Map<String, List<dynamic>>> numbers = value;
+        numbers.add(number);
+        lotteryService.saveNumbers(name, numbers);
+      }
+      else {
+        List<Map<String, List<dynamic>>> numbers = [number];
+        lotteryService.saveNumbers(name, numbers);
+      }
+    });
+  }
+
   Future<List<Map<String, List<dynamic>>>?> loadNumbers(String name) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? numbersJson = prefs.getString(name);

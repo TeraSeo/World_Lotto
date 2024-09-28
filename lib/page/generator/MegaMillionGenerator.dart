@@ -10,17 +10,16 @@ import 'package:lottery_kr/widget/item/MostWorstShownNumbersTable.dart';
 import 'package:lottery_kr/widget/texts/LotteryCardTitleText.dart';
 import 'package:lottery_kr/widget/texts/PrizeStatusText.dart';
 
-class USPowerballGenerator extends StatefulWidget {
+class MegaMillionGenerator extends StatefulWidget {
   final Map<String, dynamic> lotteryDetails;
   final Map<String, dynamic> lotteryData;
-  const USPowerballGenerator({super.key, required this.lotteryDetails, required this.lotteryData});
+  const MegaMillionGenerator({super.key, required this.lotteryDetails, required  this.lotteryData});
 
   @override
-  State<USPowerballGenerator> createState() => _USPowerballGeneratorState();
+  State<MegaMillionGenerator> createState() => _MegaMillionGeneratorState();
 }
 
-class _USPowerballGeneratorState extends State<USPowerballGenerator> {
-
+class _MegaMillionGeneratorState extends State<MegaMillionGenerator> {
   NumberGenerateService numberGenerateService = NumberGenerateService();
   LotteryService lotteryService = LotteryService();
 
@@ -46,8 +45,8 @@ class _USPowerballGeneratorState extends State<USPowerballGenerator> {
       setState(() {
         if (value != null) {
           numbers = value;
-          isNumbersLoading = false;
         }
+        isNumbersLoading = false;
       });
     });
   }

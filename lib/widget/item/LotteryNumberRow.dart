@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lottery_kr/widget/item/SmallLotteryBonusBall.dart';
 import 'package:lottery_kr/widget/item/SmallLotteryNumberBall.dart';
+import 'package:lottery_kr/widget/item/SmallReintegro.dart';
 
 class LotteryNumberRow extends StatefulWidget {
   final int index;
   final Map<String, List<dynamic>> number;
   final Color backgroundColor;
   final Function(int) removeNumberByIndex;
-  const LotteryNumberRow({super.key, required this.index, required this.number, required this.backgroundColor, required this.removeNumberByIndex});
+  final String lottoName;
+  const LotteryNumberRow({super.key, required this.index, required this.number, required this.backgroundColor, required this.removeNumberByIndex, required this.lottoName});
 
   @override
   State<LotteryNumberRow> createState() => _LotteryNumberRowState();
@@ -44,35 +46,35 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Play ${widget.index.toString()}", style: TextStyle(fontSize: screenHeight * 0.018, decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w700)),
-              SizedBox(height: screenHeight * 0.005),
-              Row(
-                children: [
-                  Row(
-                    children: List.generate(widget.number["numbers"]!.length, (index) {
-                      return SmallLotteryNumberBall(number: widget.number["numbers"]![index]);
-                    }),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Play ${widget.index.toString()}", style: TextStyle(fontSize: screenHeight * 0.018, decoration: TextDecoration.none, color: Colors.white, fontWeight: FontWeight.w700)),
+                SizedBox(height: screenHeight * 0.005),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Row(
+                        children: List.generate(widget.number["numbers"]!.length, (index) {
+                          return SmallLotteryNumberBall(number: widget.number["numbers"]![index]);
+                        }),
+                      ),
+                      Row(
+                        children: List.generate(widget.number["bonus"]!.length, (index) {
+                          if (widget.lottoName == "La Primitiva") {
+                            return SmallReintegro(number: widget.number["bonus"]![index]);
+                          }
+                          return SmallLotteryBonusBall(number: widget.number["bonus"]![index]);
+                        }),
+                      )
+                    ],
                   ),
-                  Row(
-                    children: List.generate(widget.number["bonus"]!.length, (index) {
-                      return SmallLotteryBonusBall(number: widget.number["numbers"]![index]);
-                    }),
-                  ),
-                  widget.number["reintegro"] == null ?
-                  Container()
-                  : 
-                  Row(
-                    children: List.generate(widget.number["reintegro"]!.length, (index) {
-                      return SmallLotteryBonusBall(number: widget.number["reintegro"]![index]);
-                    }),
-                  )
-                ],
-              )
-            ],
+                )
+              ],
+            )
           ),
           Row(
             children: [

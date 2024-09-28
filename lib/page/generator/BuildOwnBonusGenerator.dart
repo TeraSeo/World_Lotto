@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:lottery_kr/page/generator/BuildOwnBonusGenerator.dart';
 import 'package:lottery_kr/service/LotteryService.dart';
 import 'package:lottery_kr/service/NumberGenerateService.dart';
 import 'package:lottery_kr/widget/item/LotteryBonusBall.dart';
-import 'package:lottery_kr/widget/item/LotteryColoredNumberBall.dart';
 import 'package:lottery_kr/widget/item/LotteryNumberBall.dart';
 import 'package:lottery_kr/widget/item/LotteryReintegro.dart';
 import 'package:lottery_kr/widget/item/MostWorstShownNumbersTable.dart';
 
-class BuildOwnNumberGenerator extends StatefulWidget {
+class BuildOwnBonusGenerator extends StatefulWidget {
   final Map<String, dynamic> lotteryDetails;
   final Map<String, dynamic> lotteryData;
-  const BuildOwnNumberGenerator({super.key, required this.lotteryDetails, required this.lotteryData});
+  final List<dynamic> numbers;
+  const BuildOwnBonusGenerator({super.key, required this.lotteryDetails, required this.lotteryData, required this.numbers});
 
   @override
-  State<BuildOwnNumberGenerator> createState() => _BuildOwnNumberGeneratorState();
+  State<BuildOwnBonusGenerator> createState() => _BuildOwnBonusGeneratorState();
 }
 
-class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
+class _BuildOwnBonusGeneratorState extends State<BuildOwnBonusGenerator> {
   int normalNumberCount = 0;
   int bonusNumberCount = 0;
   int reintegroNumberCount = 0;
@@ -26,14 +25,14 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
   LotteryService lotteryService = LotteryService();
 
   bool isNumbersLoading = true;
-  int numberBallCount = 0;
+  int bonusNumberBallCount = 0;
 
-  List<dynamic> numbers = [];
+  List<dynamic> bonusNumbers = [];
 
   @override
   void initState() {
     super.initState();
-    numberBallCount = numberGenerateService.getNumberOfBalls(widget.lotteryDetails["dbTitle"]);
+    bonusNumberBallCount = numberGenerateService.getBonusNumberOfBalls(widget.lotteryDetails["dbTitle"]);
     normalNumberCount = widget.lotteryDetails["normalNumberCount"];
     bonusNumberCount= widget.lotteryDetails["bonusNumberCount"];
     reintegroNumberCount = widget.lotteryDetails["reintegroNumberCount"];
@@ -120,27 +119,32 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  numbers.length > 0 ?
+                                  Row(
+                                    children: List.generate(widget.numbers.length, (index) {
+                                      return LotteryNumberBall(number: widget.numbers[index]);
+                                    }),
+                                  ),
+                                  bonusNumbers.length > 0 ?
                                   Row(
                                     children: [
                                       Row(
-                                        children: List.generate(numbers.length, (index) {
-                                          return LotteryNumberBall(number: numbers[index]);
+                                        children: List.generate(bonusNumbers.length, (index) {
+                                          if (widget.lotteryDetails["lottoName"] == "La Primitiva") {
+                                            return LotteryReintegroBall(number: bonusNumbers[index]);
+                                          }
+                                          return LotteryBonusBall(number: bonusNumbers[index]);
                                         }),
                                       ),
                                       Row(
-                                        children: List.generate(normalNumberCount - numbers.length, (index) {
-                                          return LotteryNumberBall(number: "");
+                                        children: List.generate(bonusNumberCount - bonusNumbers.length, (index) {
+                                          if (widget.lotteryDetails["lottoName"] == "La Primitiva") {
+                                            return LotteryReintegroBall(number: "");
+                                          }
+                                          return LotteryBonusBall(number: "");
                                         }),
                                       )
                                     ],
-                                  )
-                                  :
-                                  Row(
-                                    children: List.generate(normalNumberCount, (index) {
-                                      return LotteryNumberBall(number: "");
-                                    }),
-                                  ),
+                                  ) :
                                   Row(
                                     children: List.generate(bonusNumberCount, (index) {
                                       if (widget.lotteryDetails["lottoName"] == "La Primitiva") {
@@ -163,53 +167,53 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                           child: Column(
                             children: [
                               SizedBox(height: screenHeight * 0.015),
-                              ...List.generate((numberBallCount / 7).floor(), (rowIndex) {
+                              ...List.generate((bonusNumberBallCount / 7).floor(), (rowIndex) {
                                 return Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: List.generate(7, (colIndex) {
                                     int number = rowIndex * 7 + colIndex + 1;
                                     return GestureDetector(
                                       onTap: () {
-                                        if (!numbers.contains(number) && numbers.length < normalNumberCount) {
+                                        if (!bonusNumbers.contains(number) && bonusNumbers.length < bonusNumberCount) {
                                           setState(() {
-                                            numbers.add(number);
+                                            bonusNumbers.add(number);
                                           });
                                         }
                                         else {
                                           setState(() {
-                                            numbers.remove(number);
+                                            bonusNumbers.remove(number);
                                           });
                                         }
                                       },
                                       child: Container(
                                         margin: EdgeInsets.symmetric(vertical: screenHeight * 0.005),
-                                        child: numbers.contains(number) ? LotteryColoredNumberBall(number: "$number") : LotteryNumberBall(number: "$number"),
+                                        child: bonusNumbers.contains(number) ? widget.lotteryDetails["lottoName"] == "La Primitiva" ? LotteryReintegroBall(number: "$number") : LotteryBonusBall(number: "$number") : LotteryNumberBall(number: "$number"),
                                       ),
                                     );
                                   }),
                                 );
                               }),
-                              if (numberBallCount % 7 != 0)
+                              if (bonusNumberBallCount % 7 != 0)
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  children: List.generate(numberBallCount % 7, (index) {
-                                    int number = (numberBallCount / 7).floor() * 7 + index + 1;
+                                  children: List.generate(bonusNumberBallCount % 7, (index) {
+                                    int number = (bonusNumberBallCount / 7).floor() * 7 + index + 1;
                                     return GestureDetector(
                                       onTap: () {
-                                        if (!numbers.contains(number) && numbers.length < normalNumberCount) {
+                                        if (!bonusNumbers.contains(number) && bonusNumbers.length < bonusNumberCount) {
                                           setState(() {
-                                            numbers.add(number);
+                                            bonusNumbers.add(number);
                                           });
                                         }
                                         else {
                                           setState(() {
-                                            numbers.remove(number);
+                                            bonusNumbers.remove(number);
                                           });
                                         }
                                       },
                                       child: Container(
                                         margin: EdgeInsets.symmetric(vertical: screenHeight * 0.005),
-                                        child: numbers.contains(number) ? LotteryColoredNumberBall(number: "$number") : LotteryNumberBall(number: "$number"),
+                                        child: bonusNumbers.contains(number) ? widget.lotteryDetails["lottoName"] == "La Primitiva" ? LotteryReintegroBall(number: "$number") : LotteryBonusBall(number: "$number") : LotteryNumberBall(number: "$number"),
                                       ),
                                     );
                                   }),
@@ -231,28 +235,20 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: MaterialButton(
                         onPressed: () {
-                          if (numbers.length == normalNumberCount) {
-                            if (bonusNumberCount > 0) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => BuildOwnBonusGenerator(lotteryDetails: widget.lotteryDetails, lotteryData: widget.lotteryData, numbers: numbers)),
-                              );
-                            }
-                            else {
-                              numbers.sort((a, b) => a.compareTo(b));
-                              Map<String, List<dynamic>> number = {'numbers': numbers, 'bonus': [], 'reintegro': []};
-                              lotteryService.saveSeparateNumber(widget.lotteryDetails["lottoName"], number);
-                              numberGenerateService.navigateToNumberGeneratorPageNResetToHome(widget.lotteryDetails, widget.lotteryData, context);
-                            }
-                          }
+                          if (bonusNumbers.length == bonusNumberCount) {
+                            widget.numbers.sort((a, b) => a.compareTo(b));
+                            Map<String, List<dynamic>> number = {'numbers': widget.numbers, 'bonus': bonusNumbers, 'reintegro': []};
+                            lotteryService.saveSeparateNumber(widget.lotteryDetails["lottoName"], number);
+                            numberGenerateService.navigateToNumberGeneratorPageNResetToHome(widget.lotteryDetails, widget.lotteryData, context);
+                          } 
                         },
                         child: 
-                        bonusNumberCount > 0 ?
+                        reintegroNumberCount > 0 ?
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              widget.lotteryDetails["bonusNumberText"],
+                              widget.lotteryDetails["reintegroNumberText"],
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -271,7 +267,7 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                               ),
                             ),
                           ],
-                        )
+                        ) 
                       ),
                     ),
                   ],
