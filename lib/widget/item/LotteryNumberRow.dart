@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottery_kr/service/LotteryService.dart';
 import 'package:lottery_kr/widget/item/SmallLotteryBonusBall.dart';
 import 'package:lottery_kr/widget/item/SmallLotteryNumberBall.dart';
 import 'package:lottery_kr/widget/item/SmallReintegro.dart';
@@ -16,6 +17,8 @@ class LotteryNumberRow extends StatefulWidget {
 }
 
 class _LotteryNumberRowState extends State<LotteryNumberRow> {
+  LotteryService lotteryService = LotteryService();
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +81,7 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
           ),
           Row(
             children: [
+              widget.lottoName == "Powerball" ?
               Container(
                 width: screenWidth * 0.1,
                 height: screenWidth * 0.1,
@@ -94,11 +98,19 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    
+                    List<dynamic> numbers = [];
+                    numbers.addAll(widget.number["numbers"]!);
+                    numbers.addAll(widget.number["bonus"]!);
+                    lotteryService.analyzeNumberByLottoName(widget.lottoName, numbers).then((value) {
+                      if (value.length > 0) {
+                        print(value[0].rank);
+                      }
+                    });
                   }, 
                   icon: Icon(Icons.analytics_outlined, color: Colors.black, size: screenWidth * 0.055)
                 ),
-              ),
+              ) :
+              Container(),
               SizedBox(width: screenWidth * 0.02),
               Container(
                 width: screenWidth * 0.1,

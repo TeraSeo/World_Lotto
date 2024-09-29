@@ -107,6 +107,9 @@ flutter:
     - assets/lottoworld.png
     - assets/fonts/
     - assets/translations/
+    - assets/lottos/json/MegaMillions.json
+    - assets/lottos/json/Powerball.json
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

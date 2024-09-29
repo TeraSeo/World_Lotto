@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
+import 'package:lottery_kr/model/HistoryResult.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LotteryService {
@@ -425,5 +427,51 @@ class LotteryService {
     }
     
     return null;
+  }
+
+  Future<List<HistoryResult>> analyzeNumberByLottoName(String lottoName, List<dynamic> numbers) async {
+    if (lottoName == "Powerball") {
+      return await analyzeUSPowerballNumber(numbers);
+    }
+    return [];
+  }
+
+  Future<List<HistoryResult>> analyzeUSPowerballNumber(List<dynamic> numbers) async {
+    final String response = await rootBundle.loadString('assets/lottos/json/Powerball.json');
+    final data = await json.decode(response);
+    List<HistoryResult> analyzedRanks = [];
+
+    List<dynamic> numberHistory = data["data"];
+    for (int i = 0; i < numberHistory.length; i++) {
+      List<String> splits = numberHistory[i][1].toString().split(" ");
+      int rank = getUSPowerballRank(splits, numbers);
+      if (rank != -1) {
+        String date = numberHistory[i][0].toString();
+        analyzedRanks.add(HistoryResult(rank, date));
+      }
+    }
+    analyzedRanks.sort((a, b) => a.rank.compareTo(b.rank));
+    return analyzedRanks;
+  }
+
+  int getUSPowerballRank(List<String> history, List<dynamic> number) {
+    List<String> historyNumber = history.getRange(0, 5).toList();
+    List<dynamic> chosenNumbers = number.getRange(0, 5).toList();
+    int matchedNumbers = chosenNumbers.where((num) => 
+        historyNumber.contains(num.toString()) || historyNumber.contains("0$num")
+      ).length;
+    bool powerballMatched = history[5] == number[5].toString() || history[5] == "0${number[5].toString}";
+
+    if (matchedNumbers == 5 && powerballMatched) return 1; // 1st prize
+    if (matchedNumbers == 5) return 2; // 2nd prize
+    if (matchedNumbers == 4 && powerballMatched) return 3; // 3rd prize
+    if (matchedNumbers == 4) return 4; // 4th prize
+    if (matchedNumbers == 3 && powerballMatched) return 5; // 5th prize
+    if (matchedNumbers == 3) return 6; // 6th prize
+    if (matchedNumbers == 2 && powerballMatched) return 7; // 7th prize
+    if (matchedNumbers == 1 && powerballMatched) return 8; // 8th prize
+    if (powerballMatched) return 9; // 9th prize
+    
+    return -1; // No prize
   }
 }
