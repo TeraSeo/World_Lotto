@@ -113,7 +113,7 @@ class _MostWorstShownNumbersTableState extends State<MostWorstShownNumbersTable>
                                       children: List.generate(
                                         mostWorstShownNumbers[index * 2 + 1].length, 
                                         (i) {
-                                          return LotteryBonusBall(number: int.parse(mostWorstShownNumbers[index * 2][i]));
+                                          return LotteryBonusBall(number: int.parse(mostWorstShownNumbers[index * 2 + 1][i]));
                                         },
                                       ),
                                     )

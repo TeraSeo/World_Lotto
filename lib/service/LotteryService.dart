@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:lottery_kr/model/HistoryResult.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -433,6 +434,15 @@ class LotteryService {
     if (lottoName == "Powerball") {
       return await analyzeUSPowerballNumber(numbers);
     }
+    else if (lottoName == "MegaMillions") {
+      return await analyzeMegamillonsNumber(numbers);
+    }
+    else if (lottoName == "Euromillon") {
+      return await analyzeEuroMillionsNumber(numbers);
+    }
+    else if (lottoName == "AU Powerball") {
+      return await analyzeAuPowerballNumber(numbers);
+    }
     return [];
   }
 
@@ -447,7 +457,10 @@ class LotteryService {
       int rank = getUSPowerballRank(splits, numbers);
       if (rank != -1) {
         String date = numberHistory[i][0].toString();
-        analyzedRanks.add(HistoryResult(rank, date));
+        DateTime dateTime = DateTime.parse(date);
+        String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+        Map<String, List<String>> num = { "numbers": splits.getRange(0, 5).toList(), "bonus": [splits[5].toString()] };
+        analyzedRanks.add(HistoryResult(rank, formattedDate, num));
       }
     }
     analyzedRanks.sort((a, b) => a.rank.compareTo(b.rank));
@@ -472,6 +485,149 @@ class LotteryService {
     if (matchedNumbers == 1 && powerballMatched) return 8; // 8th prize
     if (powerballMatched) return 9; // 9th prize
     
+    return -1; // No prize
+  }
+
+  Future<List<HistoryResult>> analyzeMegamillonsNumber(List<dynamic> numbers) async {
+    final String response = await rootBundle.loadString('assets/lottos/json/MegaMillions.json');
+    final data = await json.decode(response);
+    List<HistoryResult> analyzedRanks = [];
+
+    List<dynamic> numberHistory = data["data"];
+    for (int i = 0; i < numberHistory.length; i++) {
+      List<String> splits = numberHistory[i][1].toString().split(" ");
+      String megaBall = numberHistory[i][2].toString();
+      splits.add(megaBall);
+      int rank = getMegaMillionRank(splits, numbers);
+      if (rank != -1) {
+        String date = numberHistory[i][0].toString();
+        DateTime dateTime = DateTime.parse(date);
+        String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+        Map<String, List<String>> num = { "numbers": splits.getRange(0, 5).toList(), "bonus": [splits[5].toString()] };
+        analyzedRanks.add(HistoryResult(rank, formattedDate, num));
+      }
+    }
+    analyzedRanks.sort((a, b) => a.rank.compareTo(b.rank));
+    return analyzedRanks;
+  }
+
+  int getMegaMillionRank(List<String> history, List<dynamic> number) {
+    List<String> historyNumber = history.getRange(0, 5).toList();
+    List<dynamic> chosenNumbers = number.getRange(0, 5).toList();
+    int matchedNumbers = chosenNumbers.where((num) => 
+        historyNumber.contains(num.toString()) || historyNumber.contains("0$num")
+      ).length;
+    bool megaBallMatched = history[5] == number[5].toString() || history[5] == "0${number[5].toString}";
+
+    if (matchedNumbers == 5 && megaBallMatched) return 1; // 1st prize
+    if (matchedNumbers == 5) return 2; // 2nd prize
+    if (matchedNumbers == 4 && megaBallMatched) return 3; // 3rd prize
+    if (matchedNumbers == 4) return 4; // 4th prize
+    if (matchedNumbers == 3 && megaBallMatched) return 5; // 5th prize
+    if (matchedNumbers == 3) return 6; // 6th prize
+    if (matchedNumbers == 2 && megaBallMatched) return 7; // 7th prize
+    if (matchedNumbers == 1 && megaBallMatched) return 8; // 8th prize
+    if (megaBallMatched) return 9; // 9th prize
+
+    return -1; // No prize
+  }
+
+  Future<List<HistoryResult>> analyzeEuroMillionsNumber(List<dynamic> numbers) async {
+    final String response = await rootBundle.loadString('assets/lottos/json/EuroMillions.json');
+    final data = await json.decode(response);
+    List<HistoryResult> analyzedRanks = [];
+
+    List<dynamic> numberHistory = data;
+    for (int i = 0; i < numberHistory.length; i++) {
+      List<dynamic> splits = numberHistory[i]["numbers"];
+      List<dynamic> stars = numberHistory[i]["stars"];
+      splits.addAll(stars);
+      int rank = getEuroMillionRank(splits, numbers);
+      if (rank != -1) {
+        String date = numberHistory[i]["date"].toString();
+        DateFormat inputFormat = DateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'");
+        DateTime dateTime = inputFormat.parseUtc(date);
+        DateFormat outputFormat = DateFormat("dd MMM yyyy");
+        String formattedDate = outputFormat.format(dateTime);
+        Map<String, List<String>> num = { "numbers": splits.cast<String>(), "bonus": stars.cast<String>() };
+        analyzedRanks.add(HistoryResult(rank, formattedDate, num));
+      }
+    }
+    analyzedRanks.sort((a, b) => a.rank.compareTo(b.rank));
+    return analyzedRanks;
+  }
+
+  int getEuroMillionRank(List<dynamic> history, List<dynamic> number) {
+    List<dynamic> historyNumber = history.getRange(0, 5).toList();
+    List<dynamic> chosenNumbers = number.getRange(0, 5).toList();
+    int matchedNumbers = chosenNumbers.where((num) => 
+        historyNumber.contains(num.toString())
+      ).length;
+
+    List<dynamic> historyStars = history.getRange(5, 7).toList();
+    List<dynamic> chosenStars = number.getRange(5, 7).toList();
+    int matchedStars = chosenStars.where((num) => 
+        historyStars.contains(num.toString())
+      ).length;
+
+
+    if (matchedNumbers == 5 && matchedStars == 2) return 1; // Jackpot
+    if (matchedNumbers == 5 && matchedStars == 1) return 2; // 2nd prize
+    if (matchedNumbers == 5) return 3; // 3rd prize
+    if (matchedNumbers == 4 && matchedStars == 2) return 4; // 4th prize
+    if (matchedNumbers == 4 && matchedStars == 1) return 5; // 5th prize
+    if (matchedNumbers == 3 && matchedStars == 2) return 6; // 6th prize
+    if (matchedNumbers == 4) return 7; // 7th prize
+    if (matchedNumbers == 2 && matchedStars == 2) return 8; // 8th prize
+    if (matchedNumbers == 3 && matchedStars == 1) return 9; // 9th prize
+    if (matchedNumbers == 3) return 10; // 10th prize
+    if (matchedNumbers == 1 && matchedStars == 2) return 11; // 11th prize
+    if (matchedNumbers == 2 && matchedStars == 1) return 12; // 12th prize
+    if (matchedNumbers == 2) return 13; // 13th prize
+
+    return -1; // No prize
+  }
+
+  Future<List<HistoryResult>> analyzeAuPowerballNumber(List<dynamic> numbers) async {
+    final String response = await rootBundle.loadString('assets/lottos/json/AUPowerball.json');
+    final data = await json.decode(response);
+    List<HistoryResult> analyzedRanks = [];
+
+    List<dynamic> numberHistory = data;
+    for (int i = 0; i < numberHistory.length; i++) {
+      List<dynamic> splits = numberHistory[i]["Numbers"];
+      dynamic powerBall = numberHistory[i]["Powerball"];
+      splits.add(powerBall);
+      int rank = getAUPowerballRank(splits, numbers);
+      if (rank != -1) {
+        String date = numberHistory[i]["Date"].toString();
+        DateTime dateTime = DateFormat('dd/MM/yy').parse(date);
+        String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+        Map<String, List<String>> num = { "numbers": splits.getRange(0, 7).map((e) => e.toString()).toList(), "bonus": [splits[7].toString()] };
+        analyzedRanks.add(HistoryResult(rank, formattedDate, num));
+      }
+    }
+    analyzedRanks.sort((a, b) => a.rank.compareTo(b.rank));
+    return analyzedRanks;
+  }
+
+  int getAUPowerballRank(List<dynamic> history, List<dynamic> number) {
+    List<dynamic> historyNumber = history.getRange(0, 7).toList();
+    List<dynamic> chosenNumbers = number.getRange(0, 7).toList();
+    int matchedNumbers = chosenNumbers.where((num) => 
+        historyNumber.contains(num)
+      ).length;
+    bool powerballMatched = history[7] == number[7];
+
+    if (matchedNumbers == 7 && powerballMatched) return 1; // Jackpot
+    if (matchedNumbers == 7) return 2; // 2nd prize
+    if (matchedNumbers == 6 && powerballMatched) return 3; // 3rd prize
+    if (matchedNumbers == 6) return 4; // 4th prize
+    if (matchedNumbers == 5 && powerballMatched) return 5; // 5th prize
+    if (matchedNumbers == 5) return 6; // 6th prize
+    if (matchedNumbers == 4 && powerballMatched) return 7; // 7th prize
+    if (matchedNumbers == 3 && powerballMatched) return 8; // 8th prize
+
     return -1; // No prize
   }
 }

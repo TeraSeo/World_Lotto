@@ -66,16 +66,18 @@ class _LotteryHomeButtonState extends State<LotteryHomeButton> {
               ),
             ),
             SizedBox(height: screenHeight * 0.005),
-            Text(
-              widget.subText,
-              textAlign: TextAlign.start,
-              maxLines: 2,
-              style: TextStyle(
-                color: Colors.black, 
-                fontSize: 12,
-                fontWeight: FontWeight.w300, 
-              ),
-            ),
+            Expanded(
+              child: Text(
+                widget.subText,
+                textAlign: TextAlign.start,
+                maxLines: 2,
+                style: TextStyle(
+                  color: Colors.black, 
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300, 
+                ),
+              )
+            )
           ],
         ),
         shape: RoundedRectangleBorder(

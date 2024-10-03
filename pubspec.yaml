@@ -109,6 +109,8 @@ flutter:
     - assets/translations/
     - assets/lottos/json/MegaMillions.json
     - assets/lottos/json/Powerball.json
+    - assets/lottos/json/EuroMillions.json
+    - assets/lottos/json/AUPowerball.json
 
   #   - images/a_dot_ham.jpeg
 

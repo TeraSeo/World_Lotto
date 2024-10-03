@@ -46,8 +46,8 @@ class _JapanLotto2GeneratorState extends State<JapanLotto2Generator> {
         if (value != null) {
           numbers = value;
         }
+        isNumbersLoading = false;
       });
-      isNumbersLoading = false;
     });
   }
 
@@ -225,7 +225,7 @@ class _JapanLotto2GeneratorState extends State<JapanLotto2Generator> {
                 controller: _scrollController,
                 child: Column(
                   children: List.generate(numbers.length, (index) {
-                    return LotteryNumberRow(index: index + 1, number: numbers[index], backgroundColor: widget.lotteryDetails["backgroundColor"], removeNumberByIndex: removeNumberByIndex, lottoName: widget.lotteryDetails["lottoName"]);
+                    return LotteryNumberRow(index: index + 1, number: numbers[index], removeNumberByIndex: removeNumberByIndex, lotteryDetails: widget.lotteryDetails, lotteryData: widget.lotteryData);
                   }),
                 ),
               )

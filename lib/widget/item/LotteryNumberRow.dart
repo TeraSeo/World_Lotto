@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottery_kr/page/history/NumberHistory.dart';
 import 'package:lottery_kr/service/LotteryService.dart';
 import 'package:lottery_kr/widget/item/SmallLotteryBonusBall.dart';
 import 'package:lottery_kr/widget/item/SmallLotteryNumberBall.dart';
@@ -7,10 +8,10 @@ import 'package:lottery_kr/widget/item/SmallReintegro.dart';
 class LotteryNumberRow extends StatefulWidget {
   final int index;
   final Map<String, List<dynamic>> number;
-  final Color backgroundColor;
   final Function(int) removeNumberByIndex;
-  final String lottoName;
-  const LotteryNumberRow({super.key, required this.index, required this.number, required this.backgroundColor, required this.removeNumberByIndex, required this.lottoName});
+  final Map<String, dynamic> lotteryDetails;
+  final Map<String, dynamic> lotteryData;
+  const LotteryNumberRow({super.key, required this.index, required this.number, required this.removeNumberByIndex, required this.lotteryDetails, required this.lotteryData});
 
   @override
   State<LotteryNumberRow> createState() => _LotteryNumberRowState();
@@ -34,7 +35,7 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
       height: screenHeight * 0.09,
       margin: EdgeInsets.only(top: screenHeight * 0.02),
       decoration: BoxDecoration(
-        color: widget.backgroundColor,
+        color: widget.lotteryDetails["backgroundColor"],
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -67,7 +68,7 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
                       ),
                       Row(
                         children: List.generate(widget.number["bonus"]!.length, (index) {
-                          if (widget.lottoName == "La Primitiva") {
+                          if (widget.lotteryDetails["lottoName"] == "La Primitiva") {
                             return SmallReintegro(number: widget.number["bonus"]![index]);
                           }
                           return SmallLotteryBonusBall(number: widget.number["bonus"]![index]);
@@ -81,7 +82,7 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
           ),
           Row(
             children: [
-              widget.lottoName == "Powerball" ?
+              widget.lotteryDetails["lottoName"] == "Powerball" || widget.lotteryDetails["lottoName"] == "MegaMillions" || widget.lotteryDetails["lottoName"] == "Euromillon" || widget.lotteryDetails["lottoName"] == "AU Powerball" ?
               Container(
                 width: screenWidth * 0.1,
                 height: screenWidth * 0.1,
@@ -101,15 +102,18 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
                     List<dynamic> numbers = [];
                     numbers.addAll(widget.number["numbers"]!);
                     numbers.addAll(widget.number["bonus"]!);
-                    lotteryService.analyzeNumberByLottoName(widget.lottoName, numbers).then((value) {
-                      if (value.length > 0) {
-                        print(value[0].rank);
-                      }
+                    List<dynamic> prizes = widget.lotteryDetails['prizeDetails'];
+                    lotteryService.analyzeNumberByLottoName(widget.lotteryDetails["lottoName"], numbers).then((value) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => NumberHistory(historyResults: value, lotteryDetails: widget.lotteryDetails, lotteryData: widget.lotteryData, selectedNumber: widget.number, prizes: prizes)),
+                      );
                     });
                   }, 
                   icon: Icon(Icons.analytics_outlined, color: Colors.black, size: screenWidth * 0.055)
                 ),
-              ) :
+              ) 
+              :
               Container(),
               SizedBox(width: screenWidth * 0.02),
               Container(
