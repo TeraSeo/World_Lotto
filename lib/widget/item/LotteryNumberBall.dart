@@ -37,7 +37,7 @@ class _LotteryNumberBallState extends State<LotteryNumberBall> {
       child: Text(
         widget.number.toString(), 
         style: TextStyle(
-          fontSize: screenHeight * 0.015, 
+          fontSize: screenWidth * 0.033, 
           fontWeight: FontWeight.bold, 
           decoration: TextDecoration.none,
           color: Colors.black

@@ -63,7 +63,7 @@ class _LotteryCardState extends State<LotteryCard> {
 
     return Container(
       width: screenWidth * 0.92,
-      height: screenHeight * 0.28,
+      // height: screenHeight * 0.28,
       decoration: BoxDecoration(
         gradient: RadialGradient(
           colors: widget.lotteryData["color"], 

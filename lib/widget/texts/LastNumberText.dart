@@ -24,7 +24,7 @@ class _LastNumberTextState extends State<LastNumberText> {
       children: [
         Row(
           children: [
-            Text("Last - ${widget.lastDay}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13))
+            Text("Last - ${widget.lastDay}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: screenWidth * 0.033))
           ],
         ),
         Container(

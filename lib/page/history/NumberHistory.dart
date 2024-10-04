@@ -5,6 +5,7 @@ import 'package:lottery_kr/widget/item/LotteryNumberBall.dart';
 import 'package:lottery_kr/widget/item/NumberHistoryRow.dart';
 import 'package:lottery_kr/widget/texts/LotteryCardTitleText.dart';
 import 'package:lottery_kr/widget/texts/PrizeStatusText.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NumberHistory extends StatefulWidget {
   final List<HistoryResult> historyResults;
@@ -43,6 +44,11 @@ class _NumberHistoryState extends State<NumberHistory> {
     else if (widget.lotteryDetails["lottoName"] == "AU Powerball") {
       setState(() {
         historyRange = "(2018 - 2024)";
+      });
+    }
+    else if (widget.lotteryDetails["lottoName"] == "Lotto 6/45") {
+      setState(() {
+        historyRange = "(2002 - 2024)";
       });
     }
   }
@@ -121,7 +127,7 @@ class _NumberHistoryState extends State<NumberHistory> {
                   children: [
                     Row(
                       children: [
-                        Text("Selected Number", style: TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700)),
+                        Text("selectedNumber".tr(), style: TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700)),
                       ],
                     ),
                     SizedBox(height: 5),
@@ -162,7 +168,7 @@ class _NumberHistoryState extends State<NumberHistory> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(width: screenWidth * 0.02),
-                Text("Number History $historyRange:", style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: screenHeight * 0.017, fontWeight: FontWeight.w700))
+                Text("numberHistory".tr() + " $historyRange:", style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: screenHeight * 0.017, fontWeight: FontWeight.w700))
               ],
             ),
             Expanded(

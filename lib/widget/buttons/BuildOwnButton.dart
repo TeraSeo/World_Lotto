@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BuildOwnButton extends StatefulWidget {
   final Color buttonColor;
@@ -41,7 +42,7 @@ class _BuildOwnButtonState extends State<BuildOwnButton> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Select your number", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600))
+                Flexible(child: Text("selectOwnNumber".tr(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600), overflow: TextOverflow.ellipsis, maxLines: 1))
               ],
             )
           ],

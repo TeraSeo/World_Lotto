@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 import 'package:lottery_kr/widget/LotteryInfoSpecific.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HowToPlayButton extends StatefulWidget {
   final Map<String, dynamic> lotteryData;
@@ -40,7 +41,7 @@ class _HowToPlayButtonState extends State<HowToPlayButton> {
           children: [
             Icon(Icons.info_outline, size: screenWidth * 0.041, color: Colors.white),
             SizedBox(width: screenWidth * 0.015),
-            Text("How to Play", style: TextStyle(fontSize: screenWidth * 0.029, fontWeight: FontWeight.bold, color: Colors.white))
+            Text("howToPlay".tr(), style: TextStyle(fontSize: screenWidth * 0.029, fontWeight: FontWeight.bold, color: Colors.white))
           ],
         ),
       )

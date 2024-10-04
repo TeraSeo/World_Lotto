@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LotteryCardDetails {
   List<Map<String, dynamic>> usLotteries = [
@@ -25,9 +26,11 @@ class LotteryCardDetails {
       "dialogButtonColor": const Color.fromARGB(255, 238, 121, 121),
       "normalNumberCount": 5,
       "bonusNumberCount": 1,
-      "bonusNumberText": "Select Powerball Number",
+      "bonusNumberText": "selectPowerball".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 2.0,
+      "currency": "＄"
     },
     {
       "lottoName": "MegaMillions",
@@ -51,9 +54,11 @@ class LotteryCardDetails {
       "dialogButtonColor": const Color.fromARGB(255, 61, 143, 243),
       "normalNumberCount": 5,
       "bonusNumberCount": 1,
-      "bonusNumberText": "Select Megaball Number",
+      "bonusNumberText": "selectMegaball".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 2.0,
+      "currency": "＄"
     },
   ];
 
@@ -80,9 +85,11 @@ class LotteryCardDetails {
       "dialogButtonColor": const Color.fromARGB(255, 57, 126, 210),
       "normalNumberCount": 5,
       "bonusNumberCount": 2,
-      "bonusNumberText": "Select Lucky Stars Number",
+      "bonusNumberText": "selectLuckyStars".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 2.50,
+      "currency": "€"
     },
     {
       "lottoName": "EuroJackpot",
@@ -106,9 +113,11 @@ class LotteryCardDetails {
       "dialogButtonColor": const Color.fromARGB(255, 240, 219, 149),
       "normalNumberCount": 5,
       "bonusNumberCount": 2,
-      "bonusNumberText": "Select Lucky Stars Number",
+      "bonusNumberText": "selectLuckyStars".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 2.0,
+      "currency": "€"
     },
   ];
 
@@ -137,7 +146,9 @@ class LotteryCardDetails {
       "bonusNumberCount": 0,
       "bonusNumberText": "",
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 1.50,
+      "currency": "£"
     },
   ];
 
@@ -161,9 +172,11 @@ class LotteryCardDetails {
       "dialogButtonColor": Color.fromARGB(255, 241, 184, 78),
       "normalNumberCount": 6,
       "bonusNumberCount": 1,
-      "bonusNumberText": "Select Reintegro Number",
+      "bonusNumberText": "selectReintegro".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 1.0,
+      "currency": "€"
     },
     {
       "lottoName": "El Gordo de La Primitiva",
@@ -184,9 +197,11 @@ class LotteryCardDetails {
       "dialogButtonColor": Color.fromARGB(255, 32, 120, 32),
       "normalNumberCount": 5,
       "bonusNumberCount": 1,
-      "bonusNumberText": "Select Key Number",
+      "bonusNumberText": "selectKey".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 1.5,
+      "currency": "€"
     }
   ];
 
@@ -210,9 +225,11 @@ class LotteryCardDetails {
       "dialogButtonColor": Color.fromARGB(255, 80, 178, 80),
       "normalNumberCount": 6,
       "bonusNumberCount": 1,
-      "bonusNumberText": "Select Jolly Number",
+      "bonusNumberText": "selectJolly".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 1.0,
+      "currency": "€"
     }
   ];
 
@@ -236,9 +253,11 @@ class LotteryCardDetails {
       "dialogButtonColor": Color.fromARGB(255, 202, 78, 78),
       "normalNumberCount": 7,
       "bonusNumberCount": 1,
-      "bonusNumberText": "Select Powerball Number",
+      "bonusNumberText": "selectPowerball".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 1.20,
+      "currency": "A＄"
     }
   ];
 
@@ -262,9 +281,11 @@ class LotteryCardDetails {
       "dialogButtonColor": Color.fromARGB(255, 239, 141, 42),
       "normalNumberCount": 5,
       "bonusNumberCount": 1,
-      "bonusNumberText": "Select Bonus Number",
+      "bonusNumberText": "selectBonus".tr(),
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 5000.0,
+      "currency": "₩"
     }
   ];
 
@@ -290,7 +311,9 @@ class LotteryCardDetails {
       "bonusNumberCount": 0,
       "bonusNumberText": "",
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 200.0,
+      "currency": "¥"
     },
     {
       "lottoName": "Lotto 7",
@@ -313,7 +336,9 @@ class LotteryCardDetails {
       "bonusNumberCount": 0,
       "bonusNumberText": "",
       "reintegroNumberCount": 0,
-      "reintegroNumberText": ""
+      "reintegroNumberText": "",
+      "price": 300.0,
+      "currency": "¥"
     }
   ];
 }

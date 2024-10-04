@@ -312,37 +312,37 @@ class CommonWidget {
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.attach_money),
-              title: Text("result".tr()),
-              onTap: () async {
-                Navigator.pop(context);
-                bool result = await InternetConnection().hasInternetAccess;
-                if (result) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Result()),
-                  );
-                }
-                else {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text("wifiNeeded".tr()),
-                      content: Text("requireWifi".tr()),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('OK'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.attach_money),
+            //   title: Text("result".tr()),
+            //   onTap: () async {
+            //     Navigator.pop(context);
+            //     bool result = await InternetConnection().hasInternetAccess;
+            //     if (result) {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(builder: (context) => Result()),
+            //       );
+            //     }
+            //     else {
+            //       showDialog(
+            //         context: context,
+            //         builder: (context) => AlertDialog(
+            //           title: Text("wifiNeeded".tr()),
+            //           content: Text("requireWifi".tr()),
+            //           actions: <Widget>[
+            //             TextButton(
+            //               child: Text('OK'),
+            //               onPressed: () {
+            //                 Navigator.of(context).pop();
+            //               },
+            //             ),
+            //           ],
+            //         ),
+            //       );
+            //     }
+            //   },
+            // ),
             ListTile(
               leading: Icon(Icons.people),
               title: Text("discussion".tr()),
@@ -365,14 +365,14 @@ class CommonWidget {
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.expand),
-              title: Text("reward".tr()),
-              onTap: () {
-                Navigator.pop(context);
-                showRewardDialog(context);
-              },
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.expand),
+            //   title: Text("reward".tr()),
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     showRewardDialog(context);
+            //   },
+            // ),
             ListTile(
               leading: Icon(Icons.contact_page),
               title: Text("contact".tr()),

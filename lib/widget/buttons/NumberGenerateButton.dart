@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery_kr/service/NumberGenerateService.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NumberGenerateButton extends StatefulWidget {
   final Map<String, dynamic> lotteryDetails;
@@ -39,7 +40,7 @@ class _NumberGenerateButtonState extends State<NumberGenerateButton> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Generate number", style: TextStyle(fontSize: screenWidth * 0.033, fontWeight: FontWeight.bold, color: Colors.white))
+            Text("generateNumber".tr(), style: TextStyle(fontSize: screenWidth * 0.033, fontWeight: FontWeight.bold, color: Colors.white))
           ],
         ),
       )

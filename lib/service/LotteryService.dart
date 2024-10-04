@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottery_kr/model/HistoryResult.dart';
+import 'package:lottery_kr/service/NumberGenerateService.dart';
+import 'package:lottery_kr/service/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LotteryService {
@@ -398,19 +401,37 @@ class LotteryService {
     await prefs.setString(name, numbersJson);
   }
 
-  void saveSeparateNumber(String name, Map<String, List<dynamic>> number) {
-    LotteryService lotteryService = LotteryService();
-    lotteryService.loadNumbers(name).then((value) {
-      if (value != null) {
-        List<Map<String, List<dynamic>>> numbers = value;
-        numbers.add(number);
-        lotteryService.saveNumbers(name, numbers);
+  Future<bool> saveSeparateNumber(String name, Map<String, List<dynamic>> number, BuildContext context) async {
+    try { 
+      LotteryService lotteryService = LotteryService();
+      // Await the result of loading numbers
+      List<Map<String, List<dynamic>>>? numbers = await lotteryService.loadNumbers(name);
+
+      if (numbers != null) {
+        NumberGenerateService numberGenerateService = NumberGenerateService();
+        int capacity = await numberGenerateService.loadMaxCapacity();
+        
+        if (numbers.length < capacity) {
+          numbers.add(number);
+          await lotteryService.saveNumbers(name, numbers);  // Await the save operation
+          return true;  // Return true after successful save
+        } else {
+          HelperFunctions helperFunctions = HelperFunctions();
+          if (capacity < 30) {
+            helperFunctions.askExpandCapacityDialog(context);  // Show dialog for expanding capacity
+          }
+          return false;  // Capacity is full
+        }
+      } else {
+        // Create a new list with the first number entry
+        List<Map<String, List<dynamic>>> newNumbers = [number];
+        await lotteryService.saveNumbers(name, newNumbers);  // Save the new list
+        return true;  // Return true after successful save
       }
-      else {
-        List<Map<String, List<dynamic>>> numbers = [number];
-        lotteryService.saveNumbers(name, numbers);
-      }
-    });
+    } catch (e) {
+      print(e.toString());  // Print the error for debugging
+      return false;  // Return false if an error occurs
+    }
   }
 
   Future<List<Map<String, List<dynamic>>>?> loadNumbers(String name) async {
@@ -442,6 +463,9 @@ class LotteryService {
     }
     else if (lottoName == "AU Powerball") {
       return await analyzeAuPowerballNumber(numbers);
+    }
+    else if (lottoName == "Lotto 6/45") {
+      return await analyzeKLottoNumber(numbers);
     }
     return [];
   }
@@ -549,7 +573,7 @@ class LotteryService {
         DateTime dateTime = inputFormat.parseUtc(date);
         DateFormat outputFormat = DateFormat("dd MMM yyyy");
         String formattedDate = outputFormat.format(dateTime);
-        Map<String, List<String>> num = { "numbers": splits.cast<String>(), "bonus": stars.cast<String>() };
+        Map<String, List<String>> num = { "numbers": splits.map((e) => e.toString()).toList(), "bonus": stars.map((e) => e.toString()).toList() };
         analyzedRanks.add(HistoryResult(rank, formattedDate, num));
       }
     }
@@ -627,6 +651,52 @@ class LotteryService {
     if (matchedNumbers == 5) return 6; // 6th prize
     if (matchedNumbers == 4 && powerballMatched) return 7; // 7th prize
     if (matchedNumbers == 3 && powerballMatched) return 8; // 8th prize
+
+    return -1; // No prize
+  }
+
+  Future<List<HistoryResult>> analyzeKLottoNumber(List<dynamic> numbers) async {
+    final String response = await rootBundle.loadString('assets/lottos/json/KoreanBall.json');
+    final data = await json.decode(response);
+    List<HistoryResult> analyzedRanks = [];
+
+    List<dynamic> numberHistory = data;
+    for (int i = 0; i < numberHistory.length; i++) {
+      List<dynamic> splits = numberHistory[i]["Numbers"];
+      dynamic bonus = numberHistory[i]["Bonus"];
+      splits.add(bonus);
+      int rank = getKLottoRank(splits, numbers);
+      if (rank != -1) {
+        String date = numberHistory[i]["Date"].toString();
+        DateTime dateTime;
+        if (date.contains("/")) {
+          dateTime = DateFormat('M/d/yy').parse(date); 
+        }
+        else {
+          dateTime = DateTime.parse(date);
+        }
+        String formattedDate = DateFormat('dd MMMM yyyy').format(dateTime);
+        Map<String, List<String>> num = { "numbers": splits.getRange(0, 6).map((e) => e.toString()).toList(), "bonus": [splits[6].toString()] };
+        analyzedRanks.add(HistoryResult(rank, formattedDate, num));
+      }
+    }
+    analyzedRanks.sort((a, b) => a.rank.compareTo(b.rank));
+    return analyzedRanks;
+  }
+
+  int getKLottoRank(List<dynamic> history, List<dynamic> number) {
+    List<dynamic> historyNumber = history.getRange(0, 6).toList();
+    List<dynamic> chosenNumbers = number.getRange(0, 6).toList();
+    int matchedNumbers = chosenNumbers.where((num) => 
+        historyNumber.contains(num.toString())
+      ).length;
+    bool bonusMatched = history[6] == number[5];
+
+    if (matchedNumbers == 6) return 1; // 1st prize
+    if (matchedNumbers == 5 && bonusMatched) return 2; // 2nd prize
+    if (matchedNumbers == 5) return 3; // 3rd prize
+    if (matchedNumbers == 4) return 4; // 4th prize
+    if (matchedNumbers == 3) return 5; // 5th prize
 
     return -1; // No prize
   }

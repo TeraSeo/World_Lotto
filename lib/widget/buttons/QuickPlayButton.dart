@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class QuickPlayButton extends StatefulWidget {
   final Color buttonColor;
@@ -41,7 +42,7 @@ class _QuickPlayButtonState extends State<QuickPlayButton> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Quick Play", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600))
+                Text("quickPlay".tr(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600))
               ],
             )
           ],

@@ -556,7 +556,7 @@ class _DiscussionCardState extends State<DiscussionCard> {
                   leading: Icon(Icons.edit),
                   title: Text("editPost".tr()),
                   onTap: () {
-                    if (isDeleted) {
+                    if (!isDeleted) {
                       Navigator.of(context).pop();
                       Navigator.push(
                         context,
@@ -575,7 +575,7 @@ class _DiscussionCardState extends State<DiscussionCard> {
                   leading: Icon(Icons.remove_circle),
                   title: Text("removePost".tr()),
                   onTap: () async {
-                    if (isDeleted) {
+                    if (!isDeleted) {
                       if (this.mounted) {
                         setState(() {
                           isDeleted = true;

@@ -5,6 +5,7 @@ import 'package:lottery_kr/widget/item/LotteryBonusBall.dart';
 import 'package:lottery_kr/widget/item/LotteryNumberBall.dart';
 import 'package:lottery_kr/widget/item/LotteryReintegro.dart';
 import 'package:lottery_kr/widget/item/MostWorstShownNumbersTable.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BuildOwnBonusGenerator extends StatefulWidget {
   final Map<String, dynamic> lotteryDetails;
@@ -103,7 +104,7 @@ class _BuildOwnBonusGeneratorState extends State<BuildOwnBonusGenerator> {
                           Container(
                             margin: const EdgeInsets.only(top: 10, bottom: 5),
                             child: Text(
-                              "Your Current Selection",
+                              "currentSelection".tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
@@ -234,12 +235,12 @@ class _BuildOwnBonusGeneratorState extends State<BuildOwnBonusGenerator> {
                       height: screenHeight * 0.07,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: MaterialButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (bonusNumbers.length == bonusNumberCount) {
                             widget.numbers.sort((a, b) => a.compareTo(b));
                             Map<String, List<dynamic>> number = {'numbers': widget.numbers, 'bonus': bonusNumbers, 'reintegro': []};
-                            lotteryService.saveSeparateNumber(widget.lotteryDetails["lottoName"], number);
-                            numberGenerateService.navigateToNumberGeneratorPageNResetToHome(widget.lotteryDetails, widget.lotteryData, context);
+                            bool isSaved = await lotteryService.saveSeparateNumber(widget.lotteryDetails["lottoName"], number, context);
+                            if (isSaved) numberGenerateService.navigateToNumberGeneratorPageNResetToHome(widget.lotteryDetails, widget.lotteryData, context);
                           } 
                         },
                         child: 
@@ -260,7 +261,7 @@ class _BuildOwnBonusGeneratorState extends State<BuildOwnBonusGenerator> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Generate Number",
+                              "generateNumber".tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,

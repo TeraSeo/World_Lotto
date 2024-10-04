@@ -8,7 +8,9 @@ import 'package:lottery_kr/widget/buttons/QuickPlayButton.dart';
 import 'package:lottery_kr/widget/item/LotteryNumberRow.dart';
 import 'package:lottery_kr/widget/item/MostWorstShownNumbersTable.dart';
 import 'package:lottery_kr/widget/texts/LotteryCardTitleText.dart';
+import 'package:lottery_kr/widget/texts/NumberOfPlays.dart';
 import 'package:lottery_kr/widget/texts/PrizeStatusText.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LaPrimitivaNumberGenerator extends StatefulWidget {
   final Map<String, dynamic> lotteryDetails;
@@ -95,8 +97,8 @@ class _LaPrimitivaNumberGeneratorState extends State<LaPrimitivaNumberGenerator>
     });
   }
 
-  void generateByLottoName() {
-    Map<String, List<int>>? number = numberGenerateService.generateNumberByLottoName(widget.lotteryDetails["lottoName"]);
+  void generateByLottoName() async {
+    Map<String, List<int>>? number = await numberGenerateService.generateNumberByLottoName(widget.lotteryDetails["lottoName"], numbers.length, context);
     if (number != null) {
       setState(() {
         numbers.add(number);
@@ -185,7 +187,7 @@ class _LaPrimitivaNumberGeneratorState extends State<LaPrimitivaNumberGenerator>
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(width: screenWidth * 0.02),
-                Text("Choose way to play:", style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: screenHeight * 0.017, fontWeight: FontWeight.w700),)
+                Text("chooseWayToPlay".tr(), style: TextStyle(color: Colors.white, decoration: TextDecoration.none, fontSize: screenHeight * 0.017, fontWeight: FontWeight.w700),)
               ],
             ),
             isQuickPlay ?
@@ -212,13 +214,7 @@ class _LaPrimitivaNumberGeneratorState extends State<LaPrimitivaNumberGenerator>
                 ],
               ),
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03, vertical: screenHeight * 0.008),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Number of Plays: ${numbers.length}", style: TextStyle(fontSize: screenHeight * 0.015, decoration: TextDecoration.none, color: Colors.black, fontWeight: FontWeight.w700)),
-                  Text("Play cost: ＄${2.0 * numbers.length}", style: TextStyle(fontSize: screenHeight * 0.015, decoration: TextDecoration.none, color: Colors.black, fontWeight: FontWeight.w700))
-                ],
-              ),
+              child: NumberofPlays(length: numbers.length, lotteryDetails: widget.lotteryDetails),
             ),
             Expanded(
               child: SingleChildScrollView(

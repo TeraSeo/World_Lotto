@@ -83,10 +83,9 @@ class _LotteryInfoCardState extends State<LotteryInfoCard> {
             ],
           ),
           SizedBox(height: 10),
-          SizedBox(
-            width: 130,
-            child: HowToPlayButton(lotteryData: widget.lotteryDetails),
-          ),
+          Row(
+            children: [HowToPlayButton(lotteryData: widget.lotteryDetails)],
+          )
         ],
       ),
     );

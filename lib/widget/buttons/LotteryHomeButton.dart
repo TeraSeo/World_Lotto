@@ -61,7 +61,7 @@ class _LotteryHomeButtonState extends State<LotteryHomeButton> {
               maxLines: 2,
               style: TextStyle(
                 color: Colors.black, 
-                fontSize: 16,
+                fontSize: screenHeight * 0.018,
                 fontWeight: FontWeight.bold, 
               ),
             ),
@@ -73,7 +73,7 @@ class _LotteryHomeButtonState extends State<LotteryHomeButton> {
                 maxLines: 2,
                 style: TextStyle(
                   color: Colors.black, 
-                  fontSize: 12,
+                  fontSize: screenHeight * 0.014,
                   fontWeight: FontWeight.w300, 
                 ),
               )

@@ -97,14 +97,15 @@ class _HomeState extends State<Home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          LotteryHomeButton(buttonText: "Number Analysis", subText: "Analyze your numbers", icon: Icon(Icons.analytics), goToPage: () => helperFunctions.goToResult(context)),
-                          LotteryHomeButton(buttonText: "Go to Compare Lotto", subText: "Compare various lotteries", icon: Icon(Icons.compare_arrows), goToPage: () => helperFunctions.goToCompare(context)),
+                          // LotteryHomeButton(buttonText: "Number Analysis", subText: "Analyze your numbers", icon: Icon(Icons.analytics), goToPage: () => helperFunctions.goToResult(context)),
+                          LotteryHomeButton(buttonText: "goToCompare".tr(), subText: "goToCompareText".tr(), icon: Icon(Icons.compare_arrows), goToPage: () => helperFunctions.goToCompare(context)),
+                          LotteryHomeButton(buttonText: "goToDiscussion".tr(), subText: "goToDiscussionText".tr(), icon: Icon(Icons.people), goToPage: () => helperFunctions.goToDiscussion(context))
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          LotteryHomeButton(buttonText: "Go to Discussion", subText: "Share lottery tips", icon: Icon(Icons.people), goToPage: () => helperFunctions.goToDiscussion(context))
+                          LotteryHomeButton(buttonText: "goToContact".tr(), subText: "goToContactText".tr(), icon: Icon(Icons.mail), goToPage: () => showContactDialog(context))
                         ],
                       ),
                     ],
@@ -286,5 +287,25 @@ Widget dropdownButton() {
         }
       }
     });
+  }
+
+  void showContactDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('contact'.tr()),
+          content: Text("worldlotto52@gmail.com"),
+          actions: <Widget>[
+            TextButton(
+              child: Text('yes'.tr()),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

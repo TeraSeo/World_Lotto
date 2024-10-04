@@ -166,7 +166,7 @@ class HelperFunctions {
       // adUnitId: Platform.isAndroid ? 'ca-app-pub-6838337741832324/3753923774'
       //     : 'ca-app-pub-6838337741832324/7611910751',
       adUnitId: Platform.isAndroid ? 'ca-app-pub-3940256099942544/5224354917'
-        : 'ca-app-pub-7319269804560504/2207757133',
+        : 'ca-app-pub-3940256099942544/1712485313',
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd ad) {
@@ -192,14 +192,49 @@ class HelperFunctions {
   void expandNumberLimit() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      int currentLimit = prefs.getInt('numberLimit') ?? 20; // default to 0 if not set
-      if (currentLimit < 70) {
+      int currentLimit = prefs.getInt('capacity') ?? 10; // default to 0 if not set
+      if (currentLimit < 30) {
         currentLimit += 10; // increment by 10
-        await prefs.setInt('numberLimit', currentLimit); // save the updated value
+        await prefs.setInt('capacity', currentLimit); // save the updated value
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<Map<String, List<int>>?> askExpandCapacityDialog(BuildContext context) async {
+    await showDialog<void>(
+      context: context,
+        barrierDismissible: false, // Prevents closing the dialog when tapping outside
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('generationLimit'.tr()),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('askExpand'.tr())
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('no'.tr()),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await createRewardedAds(context);
+                  Navigator.of(context).pop();
+                },
+                child: Text('yes'.tr()),
+              ),
+            ],
+          );
+        },
+      );
+    return null;
   }
 
 

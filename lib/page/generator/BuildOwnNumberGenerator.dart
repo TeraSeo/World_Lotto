@@ -7,6 +7,7 @@ import 'package:lottery_kr/widget/item/LotteryColoredNumberBall.dart';
 import 'package:lottery_kr/widget/item/LotteryNumberBall.dart';
 import 'package:lottery_kr/widget/item/LotteryReintegro.dart';
 import 'package:lottery_kr/widget/item/MostWorstShownNumbersTable.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BuildOwnNumberGenerator extends StatefulWidget {
   final Map<String, dynamic> lotteryDetails;
@@ -104,7 +105,7 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                           Container(
                             margin: const EdgeInsets.only(top: 10, bottom: 5),
                             child: Text(
-                              "Your Current Selection",
+                              "currentSelection".tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
@@ -230,7 +231,7 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                       height: screenHeight * 0.07,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: MaterialButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (numbers.length == normalNumberCount) {
                             if (bonusNumberCount > 0) {
                               Navigator.push(
@@ -241,8 +242,8 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                             else {
                               numbers.sort((a, b) => a.compareTo(b));
                               Map<String, List<dynamic>> number = {'numbers': numbers, 'bonus': [], 'reintegro': []};
-                              lotteryService.saveSeparateNumber(widget.lotteryDetails["lottoName"], number);
-                              numberGenerateService.navigateToNumberGeneratorPageNResetToHome(widget.lotteryDetails, widget.lotteryData, context);
+                              bool isSaved = await lotteryService.saveSeparateNumber(widget.lotteryDetails["lottoName"], number, context);
+                              if (isSaved) numberGenerateService.navigateToNumberGeneratorPageNResetToHome(widget.lotteryDetails, widget.lotteryData, context);
                             }
                           }
                         },
@@ -264,7 +265,7 @@ class _BuildOwnNumberGeneratorState extends State<BuildOwnNumberGenerator> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Generate Number",
+                              "generateNumber".tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,

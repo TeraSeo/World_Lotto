@@ -15,6 +15,8 @@ import 'package:lottery_kr/page/generator/MegaMillionGenerator.dart';
 import 'package:lottery_kr/page/generator/SuperEnalottoGenerator.dart';
 import 'package:lottery_kr/page/generator/UKLottoGenerator.dart';
 import 'package:lottery_kr/page/generator/USPowerballGenerator.dart';
+import 'package:lottery_kr/service/helper_function.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
 class NumberGenerateService {
@@ -554,34 +556,54 @@ class NumberGenerateService {
     return res;
   }
 
-  Map<String, List<int>>? generateNumberByLottoName(String dbTitle) {
-    switch(dbTitle) {
-      case "Powerball":
-        return generateUsPowerballNumber();
-      case "MegaMillions":
-        return generateMegaMillonNumber();
-      case "Euromillon":
-        return generateEuroMillonNumber();
-      case "EuroJackpot":
-        return generateEuroJackpotNumber();
-      case "UkLotto":
-        return generateUKLottoNumber();
-      case "La Primitiva":
-        return generateLaPrimitivaNumber();
-      case "El Gordo de La Primitiva":
-        return generateElGordoNumber();
-      case "SuperEnalotto":
-        return generateSuperEnalottoNumber();
-      case "AU Powerball":
-        return generateAusPowerballNumber();
-      case "Lotto 6/45":
-        return generateKoreanNumber();
-      case "Lotto 6":
-        return generateJapan1Number();
-      case "Lotto 7":
-        return generateJapan2Number();
-      default:
-        return null;
+  Future<int> loadMaxCapacity() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final int? capacity = prefs.getInt('capacity');
+      if (capacity == null) {
+        return 10;
+      }
+      return capacity;
+    } catch (e) {
+      return 10;
+    }
+  }
+
+  Future<Map<String, List<int>>?> generateNumberByLottoName(String dbTitle, int generatedNumbersCnt, BuildContext context) async {
+    int capacity = await loadMaxCapacity();
+    if (generatedNumbersCnt < capacity) {
+      switch(dbTitle) {
+        case "Powerball":
+          return generateUsPowerballNumber();
+        case "MegaMillions":
+          return generateMegaMillonNumber();
+        case "Euromillon":
+          return generateEuroMillonNumber();
+        case "EuroJackpot":
+          return generateEuroJackpotNumber();
+        case "UkLotto":
+          return generateUKLottoNumber();
+        case "La Primitiva":
+          return generateLaPrimitivaNumber();
+        case "El Gordo de La Primitiva":
+          return generateElGordoNumber();
+        case "SuperEnalotto":
+          return generateSuperEnalottoNumber();
+        case "AU Powerball":
+          return generateAusPowerballNumber();
+        case "Lotto 6/45":
+          return generateKoreanNumber();
+        case "Lotto 6":
+          return generateJapan1Number();
+        case "Lotto 7":
+          return generateJapan2Number();
+        default:
+          return null;
+      }
+    } else {
+      HelperFunctions helperFunctions = HelperFunctions();
+      if (capacity < 30) helperFunctions.askExpandCapacityDialog(context);
+      return null;
     }
   }
 

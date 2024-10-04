@@ -82,7 +82,7 @@ class _LotteryNumberRowState extends State<LotteryNumberRow> {
           ),
           Row(
             children: [
-              widget.lotteryDetails["lottoName"] == "Powerball" || widget.lotteryDetails["lottoName"] == "MegaMillions" || widget.lotteryDetails["lottoName"] == "Euromillon" || widget.lotteryDetails["lottoName"] == "AU Powerball" ?
+              widget.lotteryDetails["lottoName"] == "Powerball" || widget.lotteryDetails["lottoName"] == "MegaMillions" || widget.lotteryDetails["lottoName"] == "Euromillon" || widget.lotteryDetails["lottoName"] == "AU Powerball" || widget.lotteryDetails["lottoName"] == "Lotto 6/45" ?
               Container(
                 width: screenWidth * 0.1,
                 height: screenWidth * 0.1,
