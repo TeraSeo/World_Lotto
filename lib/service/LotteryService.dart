@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:lottery_kr/model/HistoryResult.dart';
 import 'package:lottery_kr/service/NumberGenerateService.dart';
 import 'package:lottery_kr/service/helper_function.dart';
@@ -393,12 +395,63 @@ class LotteryService {
 
   Future<void> saveNumbers(String name, List<Map<String, List<dynamic>>> numbers) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Convert the list of maps to a List of Map<String, dynamic> for json encoding
     List<Map<String, dynamic>> numbersToSave = numbers.map((map) {
       return map.map((key, value) => MapEntry(key, value));
     }).toList();
     String numbersJson = jsonEncode(numbersToSave);
     await prefs.setString(name, numbersJson);
+  }
+
+  Future askReview(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isReviewed = prefs.getBool("isReviewMade") ?? false;
+    if (!isReviewed) {
+      try {
+        final inAppReview = InAppReview.instance;
+        
+        if (await inAppReview.isAvailable()) {
+          inAppReview.requestReview();
+        } else {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showReviewDialog(context);
+          });
+        }
+        
+        prefs.setBool("isReviewMade", true);
+      } catch (e) {
+        print(e.toString());
+        prefs.setBool("isReviewMade", true);
+      }
+    }
+  }
+
+  void showReviewDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("review".tr()),
+          content: Platform.isAndroid ? Text("askAndroidReview".tr()) : Text("askIOSReview".tr()),
+          actions: <Widget>[
+            TextButton(
+              child: Text("no".tr()),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("yes".tr()),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                final inAppReview = InAppReview.instance;
+                inAppReview.openStoreListing(
+                  appStoreId: '6505033228',
+                );
+              },
+            ),
+          ],
+        );
+    });
   }
 
   Future<bool> saveSeparateNumber(String name, Map<String, List<dynamic>> number, BuildContext context) async {

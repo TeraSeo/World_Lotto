@@ -56,8 +56,8 @@ class _USPowerballGeneratorState extends State<USPowerballGenerator> {
 
   @override
   void dispose() {
-    super.dispose();
     lotteryService.saveNumbers(widget.lotteryDetails["lottoName"], numbers);
+    super.dispose();
   }
 
   void setQuickPlayTrue() {

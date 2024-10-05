@@ -18,12 +18,12 @@ if (localPropertiesFile.exists()) {
 
 def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
 if (flutterVersionCode == null) {
-    flutterVersionCode = "30"
+    flutterVersionCode = "32"
 }
 
 def flutterVersionName = localProperties.getProperty("flutter.versionName")
 if (flutterVersionName == null) {
-    flutterVersionName = "30.0"
+    flutterVersionName = "32.0"
 }
 
 def keystoreProperties = new Properties()
@@ -51,7 +51,7 @@ android {
         applicationId = "com.world.lotto"
         minSdk = 23 // flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = 30
+        versionCode = 32
         versionName = flutterVersionName
     }
 

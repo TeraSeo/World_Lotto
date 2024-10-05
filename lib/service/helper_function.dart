@@ -166,7 +166,7 @@ class HelperFunctions {
       // adUnitId: Platform.isAndroid ? 'ca-app-pub-6838337741832324/3753923774'
       //     : 'ca-app-pub-6838337741832324/7611910751',
       adUnitId: Platform.isAndroid ? 'ca-app-pub-3940256099942544/5224354917'
-        : 'ca-app-pub-3940256099942544/1712485313',
+        : 'ca-app-pub-3940256099942544/1712485313', // test id
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd ad) {

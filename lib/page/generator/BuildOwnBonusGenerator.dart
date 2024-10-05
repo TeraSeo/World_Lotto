@@ -170,7 +170,7 @@ class _BuildOwnBonusGeneratorState extends State<BuildOwnBonusGenerator> {
                               SizedBox(height: screenHeight * 0.015),
                               ...List.generate((bonusNumberBallCount / 7).floor(), (rowIndex) {
                                 return Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: List.generate(7, (colIndex) {
                                     int number = rowIndex * 7 + colIndex + 1;
                                     return GestureDetector(
@@ -196,7 +196,7 @@ class _BuildOwnBonusGeneratorState extends State<BuildOwnBonusGenerator> {
                               }),
                               if (bonusNumberBallCount % 7 != 0)
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: List.generate(bonusNumberBallCount % 7, (index) {
                                     int number = (bonusNumberBallCount / 7).floor() * 7 + index + 1;
                                     return GestureDetector(

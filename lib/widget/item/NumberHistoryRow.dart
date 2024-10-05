@@ -40,7 +40,7 @@ class _NumberHistoryRowState extends State<NumberHistoryRow> {
         children: [
           Row(
             children: [
-              Text(widget.historyResult.drawnDate, style: TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700))
+              Text(widget.historyResult.drawnDate, style: TextStyle(fontSize: screenHeight * 0.017, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700))
             ],
           ),
           SizedBox(height: screenHeight * 0.005),
@@ -66,7 +66,7 @@ class _NumberHistoryRowState extends State<NumberHistoryRow> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(widget.prizes[widget.historyResult.rank], style: TextStyle(fontSize: 15, color: Colors.black, decoration: TextDecoration.none, fontWeight: FontWeight.w600))
+              Text(widget.prizes[widget.historyResult.rank], style: TextStyle(fontSize: screenHeight * 0.017, color: Colors.black, decoration: TextDecoration.none, fontWeight: FontWeight.w600))
             ],
           )
         ],

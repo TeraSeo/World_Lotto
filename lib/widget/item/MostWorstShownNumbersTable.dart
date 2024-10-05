@@ -90,7 +90,7 @@ class _MostWorstShownNumbersTableState extends State<MostWorstShownNumbersTable>
                       children: [
                         Row(
                           children: [
-                            Text(shownTexts[index], style: TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700)),
+                            Text(shownTexts[index], style: TextStyle(fontSize: screenHeight * 0.017, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700)),
                           ],
                         ),
                         SizedBox(height: 5),

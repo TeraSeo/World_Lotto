@@ -59,7 +59,6 @@ class _LotteryCardState extends State<LotteryCard> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
-    final screenHeight = MediaQuery.sizeOf(context).height;
 
     return Container(
       width: screenWidth * 0.92,

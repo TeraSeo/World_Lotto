@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery_kr/model/HistoryResult.dart';
+import 'package:lottery_kr/service/LotteryService.dart';
 import 'package:lottery_kr/widget/item/LotteryBonusBall.dart';
 import 'package:lottery_kr/widget/item/LotteryNumberBall.dart';
 import 'package:lottery_kr/widget/item/NumberHistoryRow.dart';
@@ -20,6 +21,8 @@ class NumberHistory extends StatefulWidget {
 }
 
 class _NumberHistoryState extends State<NumberHistory> {
+
+  LotteryService lotteryService = LotteryService();
 
   String historyRange = "";
   
@@ -84,8 +87,12 @@ class _NumberHistoryState extends State<NumberHistory> {
                 children: [
                   IconButton(
                     icon: Icon(Icons.arrow_back_ios, size: screenHeight * 0.03, color: Colors.white),
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                    onPressed: () async {
+                      lotteryService.askReview(context).then(
+                        (value) {
+                          Navigator.of(context).pop();
+                        },
+                      );
                     },
                   ),
                 ],
@@ -127,7 +134,7 @@ class _NumberHistoryState extends State<NumberHistory> {
                   children: [
                     Row(
                       children: [
-                        Text("selectedNumber".tr(), style: TextStyle(fontSize: 15, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700)),
+                        Text("selectedNumber".tr(), style: TextStyle(fontSize: screenHeight * 0.017, color: Colors.white, decoration: TextDecoration.none, fontWeight: FontWeight.w700)),
                       ],
                     ),
                     SizedBox(height: 5),
